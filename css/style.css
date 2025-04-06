@@ -8700,3 +8700,189 @@ fieldset:disabled .btn {
   .bg-gradient {
     background-image: var(--bs-gradient) !important;
   }
+
+  .user-select-all {
+    -webkit-user-select: all !important;
+    -moz-user-select: all !important;
+    user-select: all !important;
+  }
+  
+  .user-select-auto {
+    -webkit-user-select: auto !important;
+    -moz-user-select: auto !important;
+    user-select: auto !important;
+  }
+  
+  .user-select-none {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+  }
+  
+  .pe-none {
+    pointer-events: none !important;
+  }
+  
+  .pe-auto {
+    pointer-events: auto !important;
+  }
+  
+  .rounded {
+    border-radius: var(--bs-border-radius) !important;
+  }
+  
+  .rounded-0 {
+    border-radius: 0 !important;
+  }
+  
+  .rounded-1 {
+    border-radius: var(--bs-border-radius-sm) !important;
+  }
+  
+  .rounded-2 {
+    border-radius: var(--bs-border-radius) !important;
+  }
+  
+  .rounded-3 {
+    border-radius: var(--bs-border-radius-lg) !important;
+  }
+  
+  .rounded-4 {
+    border-radius: var(--bs-border-radius-xl) !important;
+  }
+  
+  .rounded-5 {
+    border-radius: var(--bs-border-radius-2xl) !important;
+  }
+  
+  .rounded-circle {
+    border-radius: 50% !important;
+  }
+  
+  .rounded-pill {
+    border-radius: var(--bs-border-radius-pill) !important;
+  }
+  
+  .rounded-top {
+    border-top-left-radius: var(--bs-border-radius) !important;
+    border-top-right-radius: var(--bs-border-radius) !important;
+  }
+  
+  .rounded-end {
+    border-top-right-radius: var(--bs-border-radius) !important;
+    border-bottom-right-radius: var(--bs-border-radius) !important;
+  }
+  
+  .rounded-bottom {
+    border-bottom-right-radius: var(--bs-border-radius) !important;
+    border-bottom-left-radius: var(--bs-border-radius) !important;
+  }
+  
+  .rounded-start {
+    border-bottom-left-radius: var(--bs-border-radius) !important;
+    border-top-left-radius: var(--bs-border-radius) !important;
+  }
+  
+  .visible {
+    visibility: visible !important;
+  }
+  
+  .invisible {
+    visibility: hidden !important;
+  }
+  
+  @media (min-width: 576px) {
+    .float-sm-start {
+      float: left !important;
+    }
+    .float-sm-end {
+      float: right !important;
+    }
+    .float-sm-none {
+      float: none !important;
+    }
+    .d-sm-inline {
+      display: inline !important;
+    }
+    .d-sm-inline-block {
+      display: inline-block !important;
+    }
+    .d-sm-block {
+      display: block !important;
+    }
+    .d-sm-grid {
+      display: grid !important;
+    }
+    .d-sm-table {
+      display: table !important;
+    }
+    .d-sm-table-row {
+      display: table-row !important;
+    }
+    .d-sm-table-cell {
+      display: table-cell !important;
+    }
+    .d-sm-flex {
+      display: flex !important;
+    }
+    .d-sm-inline-flex {
+      display: inline-flex !important;
+    }
+    .d-sm-none {
+      display: none !important;
+    }
+    .flex-sm-fill {
+      flex: 1 1 auto !important;
+    }
+    .flex-sm-row {
+      flex-direction: row !important;
+    }
+    .flex-sm-column {
+      flex-direction: column !important;
+    }
+    .flex-sm-row-reverse {
+      flex-direction: row-reverse !important;
+    }
+    .flex-sm-column-reverse {
+      flex-direction: column-reverse !important;
+    }
+    .flex-sm-grow-0 {
+      flex-grow: 0 !important;
+    }
+    .flex-sm-grow-1 {
+      flex-grow: 1 !important;
+    }
+    .flex-sm-shrink-0 {
+      flex-shrink: 0 !important;
+    }
+    .flex-sm-shrink-1 {
+      flex-shrink: 1 !important;
+    }
+    .flex-sm-wrap {
+      flex-wrap: wrap !important;
+    }
+    .flex-sm-nowrap {
+      flex-wrap: nowrap !important;
+    }
+    .flex-sm-wrap-reverse {
+      flex-wrap: wrap-reverse !important;
+    }
+    .justify-content-sm-start {
+      justify-content: flex-start !important;
+    }
+    .justify-content-sm-end {
+      justify-content: flex-end !important;
+    }
+    .justify-content-sm-center {
+      justify-content: center !important;
+    }
+    .justify-content-sm-between {
+      justify-content: space-between !important;
+    }
+    .justify-content-sm-around {
+      justify-content: space-around !important;
+    }
+    .justify-content-sm-evenly {
+      justify-content: space-evenly !important;
+    }
+  
