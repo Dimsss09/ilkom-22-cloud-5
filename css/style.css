@@ -6058,7 +6058,7 @@ fieldset:disabled .btn {
 .bs-popover-auto[data-popper-placement^="top"] > .popover-arrow::before {
   bottom: 0;
   border-top-color: var(--bs-popover-arrow-border);
-
+}
   .bs-popover-top > .popover-arrow::after,
   .bs-popover-auto[data-popper-placement^="top"] > .popover-arrow::after {
     bottom: var(--bs-popover-border-width);
