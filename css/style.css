@@ -9761,4 +9761,31 @@ fieldset:disabled .btn {
         padding-left: 3rem !important;
       }
 
-      
+      .gap-md-0 {
+        gap: 0 !important;
+      }
+      .gap-md-1 {
+        gap: 0.25rem !important;
+      }
+      .gap-md-2 {
+        gap: 0.5rem !important;
+      }
+      .gap-md-3 {
+        gap: 1rem !important;
+      }
+      .gap-md-4 {
+        gap: 1.5rem !important;
+      }
+      .gap-md-5 {
+        gap: 3rem !important;
+      }
+      .text-md-start {
+        text-align: left !important;
+      }
+      .text-md-end {
+        text-align: right !important;
+      }
+      .text-md-center {
+        text-align: center !important;
+      }
+    }
