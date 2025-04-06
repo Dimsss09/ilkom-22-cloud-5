@@ -1823,3 +1823,30 @@ progress {
   .table-bordered > :not(caption) > * > *, .datatable-table > :not(caption) > * > * {
     border-width: 0 1px;
   }
+
+  .table-borderless > :not(caption) > * > * {
+    border-bottom-width: 0;
+  }
+  .table-borderless > :not(:first-child) {
+    border-top-width: 0;
+  }
+  
+  .table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: var(--bs-table-striped-color);
+  }
+  
+  .table-striped-columns > :not(caption) > tr > :nth-child(even) {
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: var(--bs-table-striped-color);
+  }
+  
+  .table-active {
+    --bs-table-accent-bg: var(--bs-table-active-bg);
+    color: var(--bs-table-active-color);
+  }
+  
+  .table-hover > tbody > tr:hover > *, .datatable-table > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: var(--bs-table-hover-color);
+  }
