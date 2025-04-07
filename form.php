@@ -105,3 +105,155 @@ require 'cek.php';
             <!-- Batasan untuk menghindari overlap dengan navba -->
             <div style="margin-top: 56px;"></div> 
             </nav>        
+            <main>
+                    <div class="container-fluid px-4">
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <h1>Tambah Penelitian</h1>
+                            <!-- Close icon -->
+                            <a href="index.php" class="close-icon" title="Close">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form action="form.php" method="post">
+                                    <div class="mb-3">
+                                        <label for="tgl_masuk" class="form-label">Tanggal Registrasi:</label>
+                                        <input type="date" id="tgl_masuk" name="tgl_masuk" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="judul" class="form-label">Judul:</label>
+                                        <input type="text" id="judul" name="judul" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nama_penulis" class="form-label">Nama Penulis:</label>
+                                        <input type="text" id="nama_penulis" name="nama_penulis[]" class="form-control" required>
+                                        <div id="penulis_container"></div>
+                                        <button type="button" class="btn btn-secondary mt-2" id="addPenulisBtn" onclick="addPenulis()">Tambah Penulis</button>
+                                        <button type="button" class="btn btn-danger mt-2" id="removePenulisBtn" onclick="removePenulis()" style="display: none;">Hapus</button>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="instansi" class="form-label">Instansi:</label>
+                                        <div class="select-container">
+                                            <select id="instansi" name="instansi" class="form-control" required>
+                                                <option value="" disabled selected>Pilih Instansi</option>
+                                                <?php
+                                                    $getdata = mysqli_query($conn, "SELECT * FROM instansi ORDER BY nama_instansi ASC");
+                                                    if (!$getdata) {
+                                                        die("Error fetching data: " . mysqli_error($conn));
+                                                    }
+                                                    while ($fetcharray = mysqli_fetch_array($getdata)) {
+                                                        $nama_instansi = $fetcharray['nama_instansi'];
+                                                        $id_instansi = $fetcharray['id_instansi'];
+                                                ?>
+                                                <option value="<?php echo $id_instansi; ?>"><?php echo $nama_instansi; ?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fakultas" class="form-label">Fakultas:</label>
+                                        <div class="select-container">
+                                            <select id="fakultas" name="fakultas" class="form-control" required>
+                                                <option value="" disabled selected>Pilih Fakultas</option>
+                                                <?php
+                                                    $getdata = mysqli_query($conn, "SELECT * FROM fakultas ORDER BY nama_fakultas ASC");
+                                                    if (!$getdata) {
+                                                        die("Error fetching data: " . mysqli_error($conn));
+                                                    }
+                                                    while ($fetcharray = mysqli_fetch_array($getdata)) {
+                                                        $nama_fakultas = $fetcharray['nama_fakultas'];
+                                                        $id_fakultas = $fetcharray['id_fakultas'];
+                                                ?>
+                                                <option value="<?php echo $id_fakultas; ?>"><?php echo $nama_fakultas; ?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="kategori" class="form-label">Kategori:</label>
+                                        <div class="select-container">
+                                            <select id="kategori" name="kategori" class="form-control" required>
+                                                <option value="" disabled selected>Pilih Kategori</option>
+                                                <?php
+                                                    $getdata = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
+                                                    if (!$getdata) {
+                                                        die("Error fetching data: " . mysqli_error($conn));
+                                                    }
+                                                    while ($fetcharray = mysqli_fetch_array($getdata)) {
+                                                        $nama_kategori = $fetcharray['nama_kategori'];
+                                                        $id_kategori = $fetcharray['id_kategori'];
+                                                ?>
+                                                <option value="<?php echo $id_kategori; ?>"><?php echo $nama_kategori; ?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tahun" class="form-label">Tahun:</label>
+                                        <input type="text" id="tahun" name="tahun" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="rak" class="form-label">Rak:</label>
+                                        <div class="select-container">
+                                            <select id="rak" name="rak" class="form-control" required>
+                                                <option value="" disabled selected>Pilih Rak</option>
+                                                <?php
+                                                    $getdata = mysqli_query($conn, "SELECT id_rak FROM rak ORDER BY id_rak ASC");
+                                                    if (!$getdata) {
+                                                        die("Error fetching data: " . mysqli_error($conn));
+                                                    }
+                                                    while ($fetcharray = mysqli_fetch_array($getdata)) {
+                                                        $id_rak = $fetcharray['id_rak'];
+                                                ?>
+                                                <option value="<?php echo $id_rak; ?>"><?php echo $id_rak; ?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        document.querySelectorAll('.select-container select').forEach(function(select) {
+                                            select.addEventListener('focus', function() {
+                                                this.nextElementSibling.classList.add('rotate');
+                                            });
+                                            select.addEventListener('blur', function() {
+                                                this.nextElementSibling.classList.remove('rotate');
+                                            });
+                                            select.addEventListener('change', function() {
+                                                this.nextElementSibling.classList.remove('rotate');
+                                            });
+                                        });
+                                    </script>
+                                    <style>
+                                        .fa-caret-down.rotate {
+                                            transform: translateY(-50%) rotate(180deg);
+                                        }
+                                        .select-container select {
+                                            max-height: 200px; 
+                                            overflow-y: auto;
+                                        }
+                                    </style>
+                                    <button type="submit" class="btn btn-primary" name="addpenelitian">Submit</button>
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted"> &copy; KKP Ilmu Komputer UHO 2025</div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
