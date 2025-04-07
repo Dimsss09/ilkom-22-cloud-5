@@ -1,0 +1,129 @@
+BUKU PETUNJUK PENGGUNAAN APLIKASI  
+(USER MANUAL)  
+ 
+ 
+SISTEM INFORMASI PERPUSTAKAAN ELECTRONIC LIBRARY  
+(E-BRAY)  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BADAN RISET DAN INOVASI DAERAH  
+PROVINSI SULAWESI TENGGARA  
+2025  
+Versi 1.0  
+
+MENU DAN CARA PENGGUNAAN  
+1. STRUKTUR MENU  
+Struktur menu pada sistem informasi  electronic library (E-BRAY ) Badan Riset dan Inovasi  Daerah 
+Provinsi Sulawesi tenggara adalah sebagai berikut :  
+A. Website Sistem Informasi  
+1. Home  
+2. Pencarian  
+3. Login  
+4. Dashboard  
+5. Penelitian  
+6. Add Data  : 
+- Instansi  
+- Fakultas  
+- Kategori  
+- Rak 
+ 
+2. PENGGUNAAN  SISTEM  
+Pada bagian ini akan dijelaskan mengenai tata cara menggunakan dan memasukan data melalui 
+administrator sistem informasi  electronic library (E-BRAY ) Badan Riset dan Inovasi Daerah Provinsi 
+Sulawesi Tenggara.  
+2.1 Login ke dalam sistem  
+Untuk memulai akses admin sistem informasi e-bray : 
+• Bukalah melalui web browser ( Google Chrome  atau Mozila FireFox  atau lainnya) dengan alamat 
+url sebagai berikut: https://e -bray.wuaze.com/ . 
+• Kemudian tekan Enter pada tombol keyboard atau klik tombol Go pada browser.  
+• Akan muncul tampilan halaman home dari web sistem informasi  sebagai berikut : 
+ 
+• Untuk login silahkan tekan tombol admin yang berada di kanan atas, kemudian akan muncul 
+halaman login sebagai berikut:  
+
+ 
+ 
+ 
+• Silahkan masukkan Username “admin” dan password “admin” , kemudian tekan tombol  
+login.  
+• Akan muncul halaman Dashboard admin sebagai berikut:  
+ 
+ 
+ 
+2.2 Menambah data  atribut (instans i, fakul tas, kategori, rak ) 
+Sebelum menambahkan data penelitian, kita perlu mengisi terlebih dahulu data identitas penelitian. 
+Pada menu di bagian atas dashboard, terdapat fitur untuk menambahkan berbagai data pendukung 
+seperti instansi, fakultas, kategori, dan rak . Data -data ini akan digunakan sebagai identitas penelitian, 
+sehingga saat menginput penelitian baru, prosesnya menjadi lebih mudah dan terorganisir.  Prosesnya 
+adalah sebagai berikut : 
+
+• Setelah proses login berha sil, anda bisa klik menu “add data ” pada bagian upperbar seperti pada 
+gam bar berikut:  
+ 
+ 
+ 
+• Terdapat beberapa kategori data seperti Instansi, Fakultas, Kategori, dan Rak.  Pilih kategori 
+sesuai dengan data yang ingin ditambahkan  seperti pada gambar berikut:  
+ 
+ 
+ 
+• Setiap kategori memiliki tombol "Tambah" yang berwarna biru.  Klik tombol tersebut untuk 
+menambahkan data baru.  
+ 
+ 
+
+ 
+• Setelah mengklik tombol "Tambah", isi formulir yang muncul dengan informasi yang sesuai.  
+Pastikan data yang dimasukkan sudah benar sebelum menyimpan.  
+ 
+ 
+• Setelah mengisi formulir, klik tombol " Tambah Data " untuk menambahkan data dan "Close " Jika 
+anda i ngin batal untuk meny impan data . 
+ 
+ 
+ 
+• Periksa kembali data yang sudah dimasukkan pada tabel di halaman yang sama.  Jika ada 
+kesalahan, gunakan tombol "Edit" untuk memperbaiki atau "Hapus" untuk menghapus data.  
+ 
+2.3 Menambah data  penel itian  
+Setelah data pada bagian "Add Data"  telah ditambahkan (seperti instansi, fakultas, kategori, dan rak 
+penyimpanan), pengguna dapat langsung melakukan penginputan data penelitian. Berikut adalah alur 
+yang lebih spesifik setelah tahap tersebut:  
+• Setelah data dasar telah ditambahkan melalui "Add Data", pengguna dapat mengakses menu 
+"Penelitian" pada dashboard.   
+
+  
+• Halaman ini menampilkan daftar penelitian yang telah diinput sebelumnya.  
+ 
+• Di pojok kanan atas halaman "Penelitian", terdapat tombol "Tambah Penelitian".  Klik tombol ini 
+untuk membuka formulir penginputan penelitian baru.  
+ 
+• Formulir ini terdiri dari beberapa kolom yang harus diisi, seperti:  
+- Tanggal Registrasi  → Otomatis diisi atau bisa dipilih secara manual.  
+- Judul Penelitian  → Masukkan judul penelitian yang akan ditambahkan.  
+- Nama Penulis  → Masukkan nama peneliti atau penyusun karya ilmiah.  
+- Instansi  → Pilih instansi dari daftar yang telah diinput sebelumnya.  
+- Fakultas  → Pilih fakultas yang sesuai.  
+- Kategori  → Pilih kategori penelitian yang telah tersedia.  
+
+- Tahun Penelitian  → Masukkan tahun penelitian dilakukan.  
+- Rak Penyimpanan  → Pilih lokasi rak penyimpanan dari data yang telah ditambahkan 
+sebelumnya.  
+ 
+• Setelah seluruh data diisi dengan benar, klik tombol "Submit" untuk menyimpan informasi 
+penelitian ke da lam sistem . 
+ 
+• Data yang telah disimpan akan muncul dalam daftar penelitian.  
+ 
+• Jika ada perubahan atau kesalahan dalam input data, pengguna dapat:  
+- Mengedit Data → Klik tombol "Edit" di baris penelitian yang ingin diperbarui.  
+- Menghapus Data → Klik tombol "Hapus" untuk menghapus penelitian dari sistem.  
+ 
+
