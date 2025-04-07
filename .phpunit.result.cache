@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"Tests\\ChatbotTest::testChatbotResponse":0.849,"Tests\\ChatbotTest::testSystemInformationResponse":7.404,"Tests\\ChatbotTest::testEmptyInput":0.001}}
