@@ -1,5 +1,6 @@
 <?php
-require 'cek.php';
+session_start();
+require_once 'cek.php'; 
 ?>
 <!DOCTYPE html>
 
