@@ -203,7 +203,7 @@ while ($row = mysqli_fetch_assoc($instansiChartResult)) {
                             <i class="bi bi-robot"></i> Tanya AI
                         </a>
                         <a href="panduan.php?download=1" class="btn btn-primary ms-3">
-                            <i class="bi bi-cloud-download" style="font-size: 1.5rem;"></i> Unduh
+                            <i class="bi bi-cloud-download"></i> Unduh
                         </a>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
