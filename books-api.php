@@ -167,7 +167,7 @@ $total_pages = min($total_pages, 10); // Limit to 10 pages
                     <div class="card-body">
                         <!-- Search Form -->
                         <div class="search-container">
-                            <h4 class="search-title text-center">Cari Buku dari Google Books</h4>
+                            <h4 class="search-title text-center">Cari Buku Dari Google Books</h4>
                             <form method="GET" action="" class="row g-3" id="searchForm">
                                 <div class="col-lg-10 col-md-9 col-sm-12">
                                     <div class="input-group">
