@@ -86,3 +86,37 @@ while ($row = $result->fetch_assoc()) {
     }
     $data .= "</tr>";
 }
+
+// Hitung total record untuk pagination
+$count_sql = "SELECT COUNT(*) AS total FROM penelitian p
+              JOIN instansi i ON p.id_instansi = i.id_instansi
+              JOIN kategori k ON p.id_kategori = k.id_kategori
+              JOIN fakultas f ON p.id_fakultas = f.id_fakultas";
+              
+$count_sql .= " WHERE 1=1";
+if ($search != '') {
+    $count_sql .= " AND (p.judul LIKE '%$search%' OR p.nama_penulis LIKE '%$search%')";
+}
+if ($instansi != '') {
+    $count_sql .= " AND i.nama_instansi = '$instansi'";
+}
+if ($fakultas != '') {
+    $count_sql .= " AND f.nama_fakultas = '$fakultas'";
+}
+if ($year != '') {
+    $count_sql .= " AND p.tahun = '$year'";
+}
+if ($category != '') {
+    $count_sql .= " AND k.nama_kategori = '$category'";
+}
+if ($tgl_masuk != '') {
+    $count_sql .= " AND p.tgl_masuk = '$tgl_masuk'";
+}
+if ($location != '') {
+    $count_sql .= " AND p.id_rak = '$location'";
+}
+
+$count_result = $conn->query($count_sql);
+$count_row = $count_result->fetch_assoc();
+$total_records = $count_row['total'];
+$total_pages = ceil($total_records / $limit);
