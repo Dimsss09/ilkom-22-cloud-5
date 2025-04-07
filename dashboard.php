@@ -355,3 +355,200 @@ while ($row = mysqli_fetch_assoc($instansiChartResult)) {
                         }
                     });
                 }
+                
+                // Process bar chart data
+                const rawData = <?= json_encode($barChartData) ?>;
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                
+                // Ambil tahun saat ini
+                const currentYear = new Date().getFullYear();
+                const minYear = currentYear - 2; // Ambil 3 tahun terakhir
+
+                // Pastikan setiap tahun memiliki array kosong (diisi 0)
+                const processedData = {};
+
+                // Inisialisasi semua tahun dengan array 12 bulan berisi 0
+                for (let year = minYear; year <= currentYear; year++) {
+                    processedData[year] = Array(12).fill(0);
+                }
+
+                // Proses data dari rawData
+                rawData.forEach(item => {
+                    const year = parseInt(item.tahun);
+                    const month = parseInt(item.bulan) - 1; // Convert ke index 0-based
+                    const count = parseInt(item.jumlah);
+                    
+                    if (year >= minYear && year <= currentYear) {
+                        processedData[year][month] = count;
+                    }
+                });
+
+
+                // Create datasets for each year
+                const datasets = Object.entries(processedData).map(([year, counts]) => ({
+                    label: `Tahun ${year}`,
+                    data: counts,
+                    borderColor: `hsl(${Math.random() * 360}, 70%, 50%)`,
+                    fill: false,
+                    tension: 0.4
+                }));
+
+                // Create bar chart
+                const barCtx = document.getElementById('barChart').getContext('2d');
+                new Chart(barCtx, {
+                    type: 'line',
+                    data: {
+                        labels: monthNames,
+                        datasets: datasets
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Tren Penelitian per Bulan dan Tahun'
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Jumlah Penelitian'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Bulan'
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Process instansi chart data
+                const instansiLabels = <?= json_encode(array_column($instansiChartData, 'nama_instansi')); ?>;
+                const instansiData = <?= json_encode(array_column($instansiChartData, 'jumlah')); ?>;
+
+                // Create bar chart for instansi data
+                const instansiCtx = document.getElementById('instansiChart').getContext('2d');
+                new Chart(instansiCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: instansiLabels,
+                        datasets: [{
+                            label: 'Jumlah Penelitian',
+                            data: instansiData,
+                            backgroundColor: 'rgba(75, 192, 192, 1)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis : 'y',
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Jumlah Penelitian per Instansi'
+                            },
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Jumlah Penelitian'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Instansi'
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Create pie chart
+                const pieChartLabels = <?= json_encode(array_column($pieChartData, 'nama_kategori')); ?>;
+                const pieChartData = <?= json_encode(array_column($pieChartData, 'jumlah')); ?>;
+
+                const pieCtx = document.getElementById('pieChart').getContext('2d');
+                new Chart(pieCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: pieChartLabels,
+                        datasets: [{
+                            data: pieChartData,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let pdfUrl = "panduan.php"; // Ambil PDF dari server privat
+
+                let loadingTask = pdfjsLib.getDocument(pdfUrl);
+                loadingTask.promise.then(function (pdf) {
+                    console.log("PDF loaded");
+
+                    let container = document.getElementById("pdfImagesContainer");
+                    container.innerHTML = ""; // Kosongkan sebelum menambahkan gambar baru
+
+                    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                        pdf.getPage(pageNum).then(function (page) {
+                            let scale = 5; // Ubah skala untuk resolusi lebih tinggi
+                            let viewport = page.getViewport({ scale: scale });
+
+                            let canvas = document.createElement("canvas");
+                            let context = canvas.getContext("2d");
+                            canvas.width = viewport.width;
+                            canvas.height = viewport.height;
+
+                            let renderContext = {
+                                canvasContext: context,
+                                viewport: viewport
+                            };
+
+                            page.render(renderContext).promise.then(function () {
+                                let img = document.createElement("img");
+                                img.src = canvas.toDataURL("image/png"); // Ubah canvas ke gambar PNG
+                                img.style.width = "100%"; // Sesuaikan lebar
+                                container.appendChild(img);
+                            });
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
