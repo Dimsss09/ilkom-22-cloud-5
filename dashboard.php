@@ -148,6 +148,8 @@ while ($row = mysqli_fetch_assoc($instansiChartResult)) {
                 </ul>
             </div>
         </nav>
+        <div style="margin-top: 56px;"></div>
+        <div id="layoutSidenav_content">
         <script>
             $(document).ready(function() {
                 var isNavbarOpen = false;
