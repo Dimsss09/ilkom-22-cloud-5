@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -67,21 +68,20 @@
         <div class="d-flex justify-content-between align-items-center mt-4">
             <div class="d-flex align-items-center">
                 <img src="assets/img/instansi-logo.png" alt="Logo BRIDA" height="40" class="me-2">
-                <h1>AI Assistant - e-Library BRIDA</h1>
+                <h1>E-Library Bot Intelligence</h1>
             </div>
             <div>
                 <a href="dashboard.php" class="btn" style="background-color: #FFC107; color: black;">Kembali</a>
             </div>
         </div>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="depan.php">Home</a></li>
-            <li class="breadcrumb-item active">AI Assistant</li>
+            <li class="breadcrumb-item active">E-Library Bot Intelligence</li>
         </ol>
         
         <div class="card mb-4">
             <div class="card-header text-center" style="background-color: #003366; color: white;">
                 <i class="fas fa-robot me-1"></i>
-                <span>Tanya Anselma</span>
+                <span>Tanya ELBi</span>
                 <i class="fas fa-robot ms-1"></i>
             </div>
             <div class="card-body">
@@ -232,14 +232,14 @@
     `;
         async function getGeminiReply(userMessage) {
             const prompt = `
-                Kamu adalah asisten virtual yang membantu pengguna dengan informasi tentang sistem informasi, Nama kamu adalah Anselma.
+                Kamu adalah asisten virtual yang membantu pengguna dengan informasi tentang sistem informasi, Nama kamu adalah ELBi.
                 Ketika menjawab pertanyaan, tidak usah selalu memperkenalkan diri.
                 Jawaban jangan telalu monoton, dan juga jawab dengan ringkas dan jelas.
                 Jadi setiap orang menyapa atau bertanya, kamu harus menjawabnya dengan baik dan sopan.
                 Jangan terlalu kaku, kamu bisa menjawab pertanyaan pertanyaan ringan jika ada yang penasaran terhadap kamu, seperti nama, tujuan kamu dibuat (untuk perpustakaan), dans sebagainya.
                 Gaya bahasa kamu itu ramah, tetapi tetap sopan.
                 Bertindak layaknya kamu adalah seorang perempuan yang asik, ramah, dan sopan.
-                Kamu adalah asisten virtual yang membantu pengguna dengan informasi tentang sistem informasi, Nama kamu adalah Anselma.
+                Kamu adalah asisten virtual yang membantu pengguna dengan informasi tentang sistem informasi, Nama kamu adalah ELBi.
                 Jika ada pertanyaan yang ingin mengetahui terkait proses, sistem, atau kamu berasal darimana. jawab dengan baik dan sopan, tetapi tiak memberikan informasi yang privasi.
                 Jawab pertanyaan jangan terlalu jauh, cukup sekitaran sistem ini saja (panduan), jadi jangan menjawab soal saol baik matematika dan sebagainya.
 
@@ -284,7 +284,7 @@
             const chatbox = document.getElementById('chatbox');
 
             // Pesan awal dari AI
-            const initialMessage = "Hai, saya Anselma! Ada yang bisa saya bantu hari ini?";
+            const initialMessage = "Hai, saya ELBi!  asisten virtual yang siap membantumu dengan informasi seputar sistem informasi perpustakaan E-Bray, ada yang bisa saya bantu?";
             chatbox.innerHTML += `<div class="message-wrapper bot-wrapper"><div class="bot-message">${initialMessage}</div></div>`;
             chatbox.scrollTop = chatbox.scrollHeight;
         });
