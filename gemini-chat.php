@@ -34,7 +34,7 @@
         }
         .user-message, .bot-message {
             padding: 10px 15px;
-            border-radius: 0.25rem;
+            border-radius: 20px; /* Ubah ujung balok menjadi bulat */
             max-width: 80%;
             word-wrap: break-word;
             display: inline-block;
@@ -42,12 +42,12 @@
         .user-message {
             background-color: #007bff;
             color: white;
-            border-top-right-radius: 0;
+            border-top-right-radius: 0; /* Tetap hilangkan sudut kanan atas */
         }
         .bot-message {
             background-color: #e9ecef;
             color: #212529;
-            border-top-left-radius: 0;
+            border-top-left-radius: 0; /* Tetap hilangkan sudut kiri atas */
         }
         .chat-input {
             display: flex;
