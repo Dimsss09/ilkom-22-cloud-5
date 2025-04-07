@@ -34,6 +34,8 @@ if (!empty($search_query)) {
 
 // Calculate pagination
 $total_pages = ceil($total_items / $max_results);
+// Batasi maksimal halaman menjadi 10
+$total_pages = min($total_pages, 10);
 ?>
 
 <!DOCTYPE html>
