@@ -9,7 +9,7 @@ $search = new BookSearch($apiKey);
 // Get search parameters
 $search_query = $_GET['search'] ?? '';
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$max_results = 10;
+$max_results = 12;
 $start_index = ($page - 1) * $max_results;
 
 // Perform search if query is provided
