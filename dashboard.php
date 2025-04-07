@@ -190,3 +190,21 @@ while ($row = mysqli_fetch_assoc($instansiChartResult)) {
                     }
                 });
             });
+            </script>
+        <!-- Modal -->
+        <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pdfModalLabel">Panduan PDF</h5>
+                        <a href="panduan.php?download=1" class="btn btn-primary ms-3">
+                            <i class="bi bi-cloud-download" style="font-size: 1.5rem;"></i> Unduh
+                        </a>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="pdfImagesContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
