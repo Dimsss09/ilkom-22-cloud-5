@@ -151,9 +151,6 @@ session_destroy();
                         <a href="depan.php" class="btn btn-lg mt-3 btn-interactive" style="backdrop-filter: blur(5px);">
                             <i class="fas fa-search me-2"></i>Cari Penelitian
                         </a>
-                        <a href="books-api.php" class="btn btn-lg mt-3 btn-interactive" style="backdrop-filter: blur(5px);">
-                            <i class="fas fa-book me-2"></i>Cari Buku Google
-                        </a>
                     </div>
                 </div>
             </div>
