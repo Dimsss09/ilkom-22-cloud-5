@@ -147,9 +147,11 @@ session_destroy();
                     <p class="lead" style="color: white; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
                         Pusat Penelitian dan Pengetahuan
                     </p>
-                    <a href="depan.php" class="btn btn-lg mt-3 btn-interactive" style="backdrop-filter: blur(5px);">
-                        <i class="fas fa-search me-2"></i>Cari Penelitian
-                    </a>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="depan.php" class="btn btn-lg mt-3 btn-interactive" style="backdrop-filter: blur(5px);">
+                            <i class="fas fa-search me-2"></i>Cari Penelitian
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
