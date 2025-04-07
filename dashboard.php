@@ -208,3 +208,150 @@ while ($row = mysqli_fetch_assoc($instansiChartResult)) {
                 </div>
             </div>
         </div>
+        <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Dashboard</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Admin</li>
+                    </ol>
+                    <div class="row">
+                        <!-- Stats Cards -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <div class="card bg-primary text-white h-100">
+                                <div class="card-body">
+                                    JUMLAH KESELURUHAN PENELITIAN
+                                    <h2><?= $totalPenelitian; ?></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <div class="card bg-warning text-white h-100">
+                                <div class="card-body">
+                                    JUMLAH PENELITIAN BRIDA
+                                    <h2>
+                                        <?php
+                                        $bridaCount = 0;
+                                        foreach ($pieChartData as $data) {
+                                            if ($data['nama_kategori'] === 'BRIDA') {
+                                                $bridaCount = $data['jumlah'];
+                                                break;
+                                            }
+                                        }
+                                        echo $bridaCount;
+                                        ?>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <div class="card bg-success text-white h-100">
+                                <div class="card-body">
+                                    JUMLAH PENELITIAN NON-BRIDA
+                                    <h2>
+                                        <?php
+                                        $nonBridaCount = 0;
+                                        foreach ($pieChartData as $data) {
+                                            if ($data['nama_kategori'] !== 'BRIDA') {
+                                                $nonBridaCount += $data['jumlah'];
+                                            }
+                                        }
+                                        echo $nonBridaCount;
+                                        ?>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card mb-4 h-100">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-pie me-1"></i>
+                                    Jumlah Penelitian per Kategori
+                                </div>
+                                <div class="card-body"><canvas id="pieChart" style="max-height: 300px;"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card mb-4 h-100">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-bar me-1"></i>
+                                    Tren Penelitian per Bulan dan Tahun
+                                </div>
+                                <div class="card-body"><canvas id="barChart" style="max-height: 300px;"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card mb-4 h-100">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-bar me-1"></i>
+                                    Jumlah Penelitian per Instansi
+                                </div>
+                                <div class="card-body"><canvas id="instansiChart" style="max-height: 300px;"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Rest of your dashboard content -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Latest Data
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table table-striped table-bordered" id="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Judul</th>
+                                        <th>Nama Penulis</th>
+                                        <th>Instansi</th>
+                                        <th>Fakultas</th>
+                                        <th>Tahun</th>
+                                        <th>Kategori</th>
+                                        <th>Lokasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">&copy; KKP Ilmu Komputer UHO 2025</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                fetchTableData();
+
+                function fetchTableData() {
+                    $.ajax({
+                        url: 'search.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            page_type: 'depan'
+                        },
+                        success: function(data) {
+                            try {
+                                $('#data-table tbody').html(data.data);
+                                $('#pagination').html(data.pagination);
+                                $('#data-info').html(data.info);
+                            } catch (e) {
+                                console.error("Parsing error:", e);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX error:", status, error);
+                        }
+                    });
+                }
