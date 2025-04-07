@@ -257,3 +257,105 @@ require 'cek.php';
                 </footer>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script>
+         // Fungsi untuk menyesuaikan ukuran box input
+        function adjustInputWidth() {
+            document.querySelectorAll('.select-container select').forEach(function(select) {
+                select.style.width = '100%'; // Pastikan lebar selalu 100% dari kontainer
+                select.style.boxSizing = 'border-box'; // Hindari overflow
+            });
+
+            document.querySelectorAll('.form-control').forEach(function(input) {
+                input.style.width = '100%'; // Pastikan lebar input juga mengikuti ukuran kontainer
+                input.style.boxSizing = 'border-box'; // Hindari overflow
+            });
+        }
+
+        // Panggil fungsi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', adjustInputWidth);
+
+        // Panggil fungsi saat jendela diubah ukurannya
+        window.addEventListener('resize', adjustInputWidth);
+
+        $(document).ready(function() {
+            $('#instansi, #fakultas, #kategori, #rak').select2({
+                width: 'resolve' // Pastikan lebar sesuai kontainer
+            });
+
+            // Reset dropdowns to default values on form reset
+            $('form').on('reset', function() {
+                setTimeout(function() {
+                    $('#instansi').val(null).trigger('change');
+                    $('#fakultas').val(null).trigger('change');
+                    $('#kategori').val(null).trigger('change');
+                    $('#rak').val(null).trigger('change');
+                }, 0);
+            });
+        });
+
+        function addPenulis() {
+            var container = document.getElementById('penulis_container');
+            var totalInputs = container.querySelectorAll('input[name="nama_penulis[]"]').length;
+
+            if (totalInputs >= 9) { // Kolom awal + 9 = 10
+                var button = document.getElementById('addPenulisBtn');
+                button.disabled = true;
+                button.textContent = 'Batas Maksimal Tercapai';
+                button.classList.remove('btn-secondary');
+                button.classList.add('btn-danger');
+                return;
+            }
+
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'nama_penulis[]';
+            input.className = 'form-control mt-2';
+            input.required = true;
+            container.appendChild(input);
+
+            // Show the remove button if there are more than one input fields
+            if (totalInputs + 1 > 0) {
+                document.getElementById('removePenulisBtn').style.display = 'inline-block';
+            }
+        }
+
+        function removePenulis() {
+            var container = document.getElementById('penulis_container');
+            var totalInputs = container.querySelectorAll('input[name="nama_penulis[]"]').length;
+
+            if (totalInputs > 0) {
+                container.removeChild(container.lastChild);
+            }
+
+            // Hide the remove button if there is only one input field left
+            if (totalInputs - 1 <= 0) {
+                document.getElementById('removePenulisBtn').style.display = 'none';
+            }
+
+            // Re-enable the add button if it was disabled
+            var addButton = document.getElementById('addPenulisBtn');
+            if (totalInputs <= 10) {
+                addButton.disabled = false;
+                addButton.textContent = 'Tambah Penulis';
+                addButton.classList.remove('btn-danger');
+                addButton.classList.add('btn-secondary');
+            }
+        }
+
+        // Initial check to hide the remove button if there is only one input field
+        document.addEventListener('DOMContentLoaded', function() {
+            var totalInputs = document.querySelectorAll('input[name="nama_penulis[]"]').length;
+            if (totalInputs <= 1) {
+                document.getElementById('removePenulisBtn').style.display = 'none';
+            }
+        });
+
+        $(document).ready(function() {
+            $('#instansi, #fakultas, #kategori, #rak').select2({
+                width: 'resolve' // Pastikan lebar sesuai kontainer
+            });
+        });
+        </script>
+    </body>
+</html>
