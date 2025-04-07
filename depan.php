@@ -294,9 +294,22 @@ $locations_result = $conn->query($locations_query);
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="col-lg-2 col-md-3 col-sm-12 d-flex ms-auto justify-content-end">
-                        <button type="button" class="btn btn-clear me-2" id="clearSearch">Clear</button>
-                        <button type="submit" class="btn btn-primary">Search</button>
+                    <div class="row align-items-center mt-3 mb-3">
+                        <!-- Tombol kiri -->
+                        <div class="col-lg-2 col-md-3 col-sm-12">
+                            <a href="books-api.php" class="btn btn-success" id="googleBooksSearch" style="background-color: #28a745; color: white;">
+                                <i class="fas fa-book"></i> Cari di Google Books
+                            </a>
+                        </div>
+
+                        <!-- Spacer tengah -->
+                        <div class="col"></div>
+
+                        <!-- Tombol kanan -->
+                        <div class="col-lg-3 col-md-4 col-sm-12 d-flex justify-content-end">
+                            <button type="button" class="btn btn-clear me-2" id="clearSearch">Clear</button>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
                     </div>
                 </form>
 
