@@ -1,0 +1,4 @@
+1. import dulu file db_perpustakaan.sql -> buat struktur databasenya
+2. import file if0_xxxxxxxx_db_perpustakaan(1) -> data bagian 1
+3. hapus data yang ada di tabel login (admin).
+4. import file file if0_xxxxxxxx_db_perpustakaan(2) -> data bagian 2
