@@ -158,11 +158,19 @@ $total_pages = min($total_pages, 10); // Limit to 10 pages
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header text-center py-3" style="background-color: #003366; color: white;">
-                        <i class="fas fa-book me-1"></i>
-                        <i class="fas fa-search me-1"></i>
-                        <span>Pencarian Buku Google</span>
-                        <i class="fas fa-search ms-1"></i>
-                        <i class="fas fa-book ms-1"></i>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="depan.php" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-arrow-left me-2"></i>Kembali
+                            </a>
+                            <div>
+                                <i class="fas fa-book me-1"></i>
+                                <i class="fas fa-search me-1"></i>
+                                <span>Pencarian Buku Google</span>
+                                <i class="fas fa-search ms-1"></i>
+                                <i class="fas fa-book ms-1"></i>
+                            </div>
+                            <div style="width: 80px;"></div> <!-- Spacer untuk menyeimbangkan layout -->
+                        </div>
                     </div>
                     <div class="card-body">
                         <!-- Search Form -->
