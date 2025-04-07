@@ -1,5 +1,5 @@
 <?php
-require 'function.php';
+require 'cek.php';
 
 // Function to call Gemini API
 function callGeminiAPI($prompt) {
