@@ -207,7 +207,10 @@ $total_pages = min($total_pages, 10);
                             <div class="mt-4">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h4 class="mb-0">Hasil Pencarian: "<?php echo htmlspecialchars($search_query); ?>"</h4>
-                                    <span class="badge bg-primary"><?php echo $total_items; ?> buku ditemukan</span>
+                                    <div>
+                                        <span class="badge bg-primary me-2"><?php echo number_format($total_items); ?> total buku</span>
+                                        <span class="badge bg-secondary"><?php echo count($books); ?> buku di halaman ini</span>
+                                    </div>
                                 </div>
                                 
                                 <?php if (empty($books)): ?>
@@ -376,4 +379,4 @@ $total_pages = min($total_pages, 10);
         });
     </script>
 </body>
-</html> 
+</html>
