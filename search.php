@@ -24,3 +24,44 @@ $location = isset($_POST['location']) ? $conn->real_escape_string($_POST['locati
 $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
 $limit = 10; // Jumlah record per halaman
 $offset = ($page - 1) * $limit;
+
+// Tentukan kolom yang akan ditampilkan berdasarkan halaman yang memanggil
+$columns = "p.id_penelitian, p.judul, p.nama_penulis, i.nama_instansi, f.nama_fakultas, p.tahun, k.nama_kategori, p.id_rak";
+if (isset($_POST['page_type']) && $_POST['page_type'] == 'index') {
+    $columns .= ", p.tgl_masuk";
+}
+
+$sql = "SELECT $columns
+        FROM penelitian p
+        JOIN instansi i ON p.id_instansi = i.id_instansi
+        JOIN kategori k ON p.id_kategori = k.id_kategori
+        JOIN fakultas f ON p.id_fakultas = f.id_fakultas";
+$sql .= " WHERE 1=1";
+
+if ($search != '') {
+    $sql .= " AND (p.judul LIKE '%$search%' OR p.nama_penulis LIKE '%$search%')";
+}
+if ($instansi != '') {
+    $sql .= " AND i.nama_instansi = '$instansi'";
+}
+if ($fakultas != '') {
+    $sql .= " AND f.nama_fakultas = '$fakultas'";
+}
+if ($year != '') {
+    $sql .= " AND p.tahun = '$year'";
+}
+if ($category != '') {
+    $sql .= " AND k.nama_kategori = '$category'";
+}
+if ($tgl_masuk != '') {
+    $sql .= " AND p.tgl_masuk = '$tgl_masuk'";
+}
+if ($location != '') {
+    $sql .= " AND p.id_rak = '$location'";
+}
+
+$sql .= " ORDER BY p.tgl_masuk DESC, p.id_penelitian DESC"; 
+$sql .= " LIMIT $limit OFFSET $offset";
+
+
+$result = $conn->query($sql);
