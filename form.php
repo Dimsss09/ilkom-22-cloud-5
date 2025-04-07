@@ -75,3 +75,33 @@ require 'cek.php';
             }
         </style>
         </style>
+    </head>
+    <body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="dashboard.php">E-BRAY</a>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto me-3 me-lg-4">
+            <li class="nav-item">
+                <a class="nav-link" href="home.php"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php"><i class="fas fa-clipboard-list"></i> Penelitian</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="depan-admin.php"><i class="fas fa-plus"></i> Add Data</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </li>
+        </ul>
+        </nav>
+        </nav>
+            <!-- Batasan untuk menghindari overlap dengan navba -->
+            <div style="margin-top: 56px;"></div> 
+            </nav>        
