@@ -155,3 +155,15 @@ if ($page < $total_pages) {
 }
 
 $pagination .= '</ul>';
+
+$response = [
+    'data' => $data,
+    'pagination' => $pagination,
+    'info' => "Showing page $page of $total_pages",
+    'total_records' =>  "Showing $result->num_rows records out of $total_records"
+];
+
+// Bersihkan output buffer dan kirim respons JSON
+ob_end_clean();
+echo json_encode($response);
+?>
