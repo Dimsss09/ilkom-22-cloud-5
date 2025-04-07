@@ -1,0 +1,18 @@
+{
+    "name": "perpustakaan/brida",
+    "description": "Sistem Informasi perpustakaan brida yang terintregasi dengan buku-buku di goggle books",
+    "autoload": {
+        "psr-4": {
+            "Perpustakaan\\Brida\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Muhammad Dimas R.",
+            "email": "draxozy@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    }
+}
