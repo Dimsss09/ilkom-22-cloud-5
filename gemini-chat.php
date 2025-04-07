@@ -1,53 +1,3 @@
-<?php
-require 'cek.php';
-
-// Function to call Gemini API
-function callGeminiAPI($prompt) {
-    $apiKey = "AIzaSyCB8FuEkyhi3EGF9MldM5WyIemYJglkcpE"; // Replace with your actual API key
-    
-    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" . $apiKey;
-    
-    $data = [
-        "contents" => [
-            [
-                "parts" => [
-                    ["text" => $prompt]
-                ]
-            ]
-        ]
-    ];
-    
-    $options = [
-        "http" => [
-            "method" => "POST",
-            "header" => "Content-Type: application/json",
-            "content" => json_encode($data)
-        ]
-    ];
-    
-    $context = stream_context_create($options);
-    $response = file_get_contents($url, false, $context);
-    
-    if ($response === FALSE) {
-        return "Error: Unable to connect to Gemini API";
-    }
-    
-    $result = json_decode($response, true);
-    
-    if (isset($result['candidates'][0]['content']['parts'][0]['text'])) {
-        return $result['candidates'][0]['content']['parts'][0]['text'];
-    } else {
-        return "Error: Invalid response from Gemini API";
-    }
-}
-
-// Handle form submission
-$chatResponse = "";
-if (isset($_POST['prompt']) && !empty($_POST['prompt'])) {
-    $prompt = $_POST['prompt'];
-    $chatResponse = callGeminiAPI($prompt);
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,7 +13,7 @@ if (isset($_POST['prompt']) && !empty($_POST['prompt'])) {
     <link rel="Icon" type="png" href="assets/img/instansi-logo.png">
     <style>
         .chat-container {
-            height: 500px;
+            max-height: calc(100vh - 300px); /* Dinamis berdasarkan tinggi viewport */
             overflow-y: auto;
             border: 1px solid #dee2e6;
             border-radius: 0.25rem;
@@ -71,21 +21,17 @@ if (isset($_POST['prompt']) && !empty($_POST['prompt'])) {
             margin-bottom: 20px;
             background-color: #f8f9fa;
         }
-        
         .message-wrapper {
             display: flex;
             margin-bottom: 15px;
             width: 100%;
         }
-        
         .user-wrapper {
             justify-content: flex-end;
         }
-        
         .bot-wrapper {
             justify-content: flex-start;
         }
-        
         .user-message, .bot-message {
             padding: 10px 15px;
             border-radius: 0.25rem;
@@ -93,64 +39,26 @@ if (isset($_POST['prompt']) && !empty($_POST['prompt'])) {
             word-wrap: break-word;
             display: inline-block;
         }
-        
         .user-message {
             background-color: #007bff;
             color: white;
             border-top-right-radius: 0;
         }
-        
         .bot-message {
             background-color: #e9ecef;
             color: #212529;
             border-top-left-radius: 0;
         }
-        
         .chat-input {
             display: flex;
             margin-bottom: 20px;
         }
-        
         .chat-input input {
             flex-grow: 1;
             margin-right: 10px;
         }
-        
         .chat-input button {
             min-width: 100px;
-        }
-        
-        .typing-indicator {
-            display: none;
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            background-color: #e9ecef;
-            border-radius: 0.25rem;
-            color: #6c757d;
-            width: fit-content;
-        }
-        
-        .typing-indicator span {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #6c757d;
-            border-radius: 50%;
-            margin-right: 5px;
-            animation: typing 1s infinite;
-        }
-        
-        .typing-indicator span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .typing-indicator span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        
-        @keyframes typing {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
         }
     </style>
 </head>
@@ -162,8 +70,7 @@ if (isset($_POST['prompt']) && !empty($_POST['prompt'])) {
                 <h1>AI Assistant - e-Library BRIDA</h1>
             </div>
             <div>
-                <a href="home.php" class="btn" style="background-color: #FFC107; color: black;">Home</a>
-                <a href="login.php" class="btn" style="background-color: #FFC107; color: black;">Login</a>
+                <a href="dashboard.php" class="btn" style="background-color: #FFC107; color: black;">Kembali</a>
             </div>
         </div>
         <ol class="breadcrumb mb-4">
@@ -174,47 +81,15 @@ if (isset($_POST['prompt']) && !empty($_POST['prompt'])) {
         <div class="card mb-4">
             <div class="card-header text-center" style="background-color: #003366; color: white;">
                 <i class="fas fa-robot me-1"></i>
-                <span>Chat with AI Assistant</span>
+                <span>Tanya Anselma</span>
                 <i class="fas fa-robot ms-1"></i>
             </div>
             <div class="card-body">
-                <div class="chat-container" id="chatContainer">
-                    <div class="message-wrapper bot-wrapper">
-                        <div class="bot-message">
-                            Hello! I'm your AI Assistant. How can I help you today?
-                        </div>
-                    </div>
-                    
-                    <?php if (!empty($chatResponse)): ?>
-                        <div class="message-wrapper user-wrapper">
-                            <div class="user-message">
-                                <?php echo htmlspecialchars($_POST['prompt']); ?>
-                            </div>
-                        </div>
-                        <div class="message-wrapper bot-wrapper">
-                            <div class="bot-message">
-                                <?php echo nl2br(htmlspecialchars($chatResponse)); ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    
-                    <div class="message-wrapper bot-wrapper">
-                        <div class="typing-indicator" id="typingIndicator">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            AI Assistant is typing...
-                        </div>
-                    </div>
-                </div>
+                <div class="chat-container" id="chatbox"></div>
                 
-                <form method="POST" action="" id="chatForm">
-                    <div class="chat-input">
-                        <input type="text" class="form-control" name="prompt" id="prompt" placeholder="Type your message here..." required>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i> Send
-                        </button>
-                    </div>
+                <form id="chatForm" class="mt-3 d-flex">
+                    <input type="text" class="form-control me-2" id="userInput" placeholder="Tulis pesan..." required>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
                 </form>
             </div>
         </div>
@@ -228,105 +103,205 @@ if (isset($_POST['prompt']) && !empty($_POST['prompt'])) {
         </div>
     </footer>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const chatContainer = document.getElementById('chatContainer');
-            const chatForm = document.getElementById('chatForm');
-            const promptInput = document.getElementById('prompt');
-            const typingIndicator = document.getElementById('typingIndicator');
-            
-            // Scroll to bottom of chat container
-            function scrollToBottom() {
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }
-            
-            // Initial scroll to bottom
-            scrollToBottom();
-            
-            // Handle form submission
-            chatForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const prompt = promptInput.value.trim();
-                if (!prompt) return;
-                
-                // Add user message to chat
-                const userWrapper = document.createElement('div');
-                userWrapper.className = 'message-wrapper user-wrapper';
-                
-                const userMessageDiv = document.createElement('div');
-                userMessageDiv.className = 'user-message';
-                userMessageDiv.textContent = prompt;
-                
-                userWrapper.appendChild(userMessageDiv);
-                chatContainer.appendChild(userWrapper);
-                
-                // Show typing indicator
-                typingIndicator.style.display = 'block';
-                
-                // Clear input
-                promptInput.value = '';
-                
-                // Scroll to bottom
-                scrollToBottom();
-                
-                // Submit form via AJAX
-                const formData = new FormData(chatForm);
-                
-                fetch('gemini-chat.php', {
-                    method: 'POST',
-                    body: formData
+        const API_KEY = 'AIzaSyBW1cOKo7xcuVoEWWtYGzpRlBOMoKJEY7c';
+        const guideText = `
+      BUKU PETUNJUK PENGGUNAAN APLIKASI  
+      (USER MANUAL)  
+      
+      
+      SISTEM INFORMASI PERPUSTAKAAN ELECTRONIC LIBRARY  
+      (E-BRAY)  
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      BADAN RISET DAN INOVASI DAERAH  
+      PROVINSI SULAWESI TENGGARA  
+      2025  
+      Versi 1.0  
+
+      MENU DAN CARA PENGGUNAAN  
+      1. STRUKTUR MENU  
+      Struktur menu pada sistem informasi  electronic library (E-BRAY ) Badan Riset dan Inovasi  Daerah 
+      Provinsi Sulawesi tenggara adalah sebagai berikut :  
+      A. Website Sistem Informasi  
+      1. Home  
+      2. Pencarian  
+      3. Login  
+      4. Dashboard  
+      5. Penelitian  
+      6. Add Data  : 
+      - Instansi  
+      - Fakultas  
+      - Kategori  
+      - Rak 
+      
+      2. PENGGUNAAN  SISTEM  
+      Pada bagian ini akan dijelaskan mengenai tata cara menggunakan dan memasukan data melalui 
+      administrator sistem informasi  electronic library (E-BRAY ) Badan Riset dan Inovasi Daerah Provinsi 
+      Sulawesi Tenggara.  
+      2.1 Login ke dalam sistem  
+      Untuk memulai akses admin sistem informasi e-bray : 
+      • Bukalah melalui web browser ( Google Chrome  atau Mozila FireFox  atau lainnya) dengan alamat 
+      url sebagai berikut: https://e -bray.wuaze.com/ . 
+      • Kemudian tekan Enter pada tombol keyboard atau klik tombol Go pada browser.  
+      • Akan muncul tampilan halaman home dari web sistem informasi  sebagai berikut : 
+      
+      • Untuk login silahkan tekan tombol admin yang berada di kanan atas, kemudian akan muncul 
+      halaman login sebagai berikut:  
+
+      
+      
+      
+      • Silahkan masukkan Username “admin” dan password “admin” , kemudian tekan tombol  
+      login.  
+      • Akan muncul halaman Dashboard admin sebagai berikut:  
+      
+      
+
+      2.2 Menambah data  atribut (instans i, fakul tas, kategori, rak ) 
+      Sebelum menambahkan data penelitian, kita perlu mengisi terlebih dahulu data identitas penelitian. 
+      Pada menu di bagian atas dashboard, terdapat fitur untuk menambahkan berbagai data pendukung 
+      seperti instansi, fakultas, kategori, dan rak . Data -data ini akan digunakan sebagai identitas penelitian, 
+      sehingga saat menginput penelitian baru, prosesnya menjadi lebih mudah dan terorganisir.  Prosesnya 
+      adalah sebagai berikut : 
+
+      • Setelah proses login berha sil, anda bisa klik menu “add data ” pada bagian upperbar seperti pada 
+      gam bar berikut:  
+      
+      
+      • Terdapat beberapa kategori data seperti Instansi, Fakultas, Kategori, dan Rak.  Pilih kategori 
+      sesuai dengan data yang ingin ditambahkan  seperti pada gambar berikut:  
+      
+      
+      • Setiap kategori memiliki tombol "Tambah" yang berwarna biru.  Klik tombol tersebut untuk 
+      menambahkan data baru.  
+      
+      
+      • Setelah mengklik tombol "Tambah", isi formulir yang muncul dengan informasi yang sesuai.  
+      Pastikan data yang dimasukkan sudah benar sebelum menyimpan.  
+      
+      
+      • Setelah mengisi formulir, klik tombol " Tambah Data " untuk menambahkan data dan "Close " Jika 
+      anda i ngin batal untuk meny impan data . 
+      
+      
+      
+      • Periksa kembali data yang sudah dimasukkan pada tabel di halaman yang sama.  Jika ada 
+      kesalahan, gunakan tombol "Edit" untuk memperbaiki atau "Hapus" untuk menghapus data.  
+      
+      2.3 Menambah data  penel itian  
+      Setelah data pada bagian "Add Data"  telah ditambahkan (seperti instansi, fakultas, kategori, dan rak 
+      penyimpanan), pengguna dapat langsung melakukan penginputan data penelitian. Berikut adalah alur 
+      yang lebih spesifik setelah tahap tersebut:  
+      • Setelah data dasar telah ditambahkan melalui "Add Data", pengguna dapat mengakses menu 
+      "Penelitian" pada dashboard.   
+
+        
+      • Halaman ini menampilkan daftar penelitian yang telah diinput sebelumnya.  
+      
+      • Di pojok kanan atas halaman "Penelitian", terdapat tombol "Tambah Penelitian".  Klik tombol ini 
+      untuk membuka formulir penginputan penelitian baru.  
+      
+      • Formulir ini terdiri dari beberapa kolom yang harus diisi, seperti:  
+      - Tanggal Registrasi  → Otomatis diisi atau bisa dipilih secara manual.  
+      - Judul Penelitian  → Masukkan judul penelitian yang akan ditambahkan.  
+      - Nama Penulis  → Masukkan nama peneliti atau penyusun karya ilmiah.  
+      - Instansi  → Pilih instansi dari daftar yang telah diinput sebelumnya.  
+      - Fakultas  → Pilih fakultas yang sesuai.  
+      - Kategori  → Pilih kategori penelitian yang telah tersedia.  
+
+      - Tahun Penelitian  → Masukkan tahun penelitian dilakukan.  
+      - Rak Penyimpanan  → Pilih lokasi rak penyimpanan dari data yang telah ditambahkan 
+      sebelumnya.  
+      
+      • Setelah seluruh data diisi dengan benar, klik tombol "Submit" untuk menyimpan informasi 
+      penelitian ke da lam sistem . 
+      
+      • Data yang telah disimpan akan muncul dalam daftar penelitian.  
+      
+      • Jika ada perubahan atau kesalahan dalam input data, pengguna dapat:  
+      - Mengedit Data → Klik tombol "Edit" di baris penelitian yang ingin diperbarui.  
+      - Menghapus Data → Klik tombol "Hapus" untuk menghapus penelitian dari sistem.  
+    `;
+        async function getGeminiReply(userMessage) {
+            const prompt = `
+                Kamu adalah asisten virtual yang membantu pengguna dengan informasi tentang sistem informasi, Nama kamu adalah Anselma.
+                Ketika menjawab pertanyaan, tidak usah selalu memperkenalkan diri.
+                Jawaban jangan telalu monoton, dan juga jawab dengan ringkas dan jelas.
+                Jadi setiap orang menyapa atau bertanya, kamu harus menjawabnya dengan baik dan sopan.
+                Jangan terlalu kaku, kamu bisa menjawab pertanyaan pertanyaan ringan jika ada yang penasaran terhadap kamu, seperti nama, tujuan kamu dibuat (untuk perpustakaan), dans sebagainya.
+                Gaya bahasa kamu itu ramah, tetapi tetap sopan.
+                Bertindak layaknya kamu adalah seorang perempuan yang asik, ramah, dan sopan.
+                Kamu adalah asisten virtual yang membantu pengguna dengan informasi tentang sistem informasi, Nama kamu adalah Anselma.
+                Jika ada pertanyaan yang ingin mengetahui terkait proses, sistem, atau kamu berasal darimana. jawab dengan baik dan sopan, tetapi tiak memberikan informasi yang privasi.
+                Jawab pertanyaan jangan terlalu jauh, cukup sekitaran sistem ini saja (panduan), jadi jangan menjawab soal saol baik matematika dan sebagainya.
+
+
+                Gunakan panduan di bawah ini untuk membantu menjawab pertanyaan. Berikan jawaban yang
+                jelas dan ringkas. Jika tidak ada informasi yang relevan, katakan "Tidak ada informasi yang tersedia".
+                Berikan jawaban sesuai dengan apa yang kamu pahami dari panduan tersebut. 
+                Jika jawabannya panjang, maka buatlah dalam beberapa paragraf.
+                Jika jawabannya terkai langkah-langkah, maka buatlah dalam bentuk list atau bullet point yang menurun.
+                Tuliskan langkah-langkah secara terstruktur dalam bentuk list vertikal.
+                "Tampilkan langkah-langkah dalam format list vertikal, satu langkah per baris, seperti dalam Markdown atau HTML."
+                Tolong berikan jawaban dalam format HTML list menggunakan <ol><li>...</li></ol> agar hasilnya lebih rapi.
+                Jangan memberikan informasi yang sensitif seperti password untuk login dan sebagainya.
+                Jangan mengulangi panduan tersebut dalam jawabanmu, tetapi buat bahasamu sendiri sesuai dengan apa yang kamu pahami dari panduan tersebut, jangan langsung copy teksnya, dan gunakan kalimat yang mudah dimengerti pengguna.
+                Jangan mempelajari dari pengguna, tetapi pelajari dari panduan yang sudah ada, dan ikuti perintah yang sudah disipakan di atas.
+
+                Panduan tambahan :
+                - Logout berada di pojok kanan atas, jika sudah login, maka akan muncul tombol logout.
+                - Menekan tombol E-bray di pojok kiri atas, akan mengarahkan ke halaman dashboard (khusus untuk admin).
+                ${guideText}
+
+                Pertanyaan:
+                ${userMessage}
+            `;
+            const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    contents: [
+                        { role: "user", parts: [{ text: prompt }] }
+                    ]
                 })
-                .then(response => response.text())
-                .then(html => {
-                    // Hide typing indicator
-                    typingIndicator.style.display = 'none';
-                    
-                    // Create a temporary container to parse the HTML
-                    const tempContainer = document.createElement('div');
-                    tempContainer.innerHTML = html;
-                    
-                    // Extract the bot response
-                    const botResponses = tempContainer.querySelectorAll('.bot-message');
-                    if (botResponses.length > 0) {
-                        const lastBotResponse = botResponses[botResponses.length - 1];
-                        
-                        // Add bot response to chat
-                        const botWrapper = document.createElement('div');
-                        botWrapper.className = 'message-wrapper bot-wrapper';
-                        
-                        const botMessageDiv = document.createElement('div');
-                        botMessageDiv.className = 'bot-message';
-                        botMessageDiv.innerHTML = lastBotResponse.innerHTML;
-                        
-                        botWrapper.appendChild(botMessageDiv);
-                        chatContainer.appendChild(botWrapper);
-                        
-                        // Scroll to bottom
-                        scrollToBottom();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    typingIndicator.style.display = 'none';
-                    
-                    // Add error message
-                    const botWrapper = document.createElement('div');
-                    botWrapper.className = 'message-wrapper bot-wrapper';
-                    
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'bot-message';
-                    errorDiv.textContent = 'Sorry, there was an error processing your request.';
-                    
-                    botWrapper.appendChild(errorDiv);
-                    chatContainer.appendChild(botWrapper);
-                    
-                    // Scroll to bottom
-                    scrollToBottom();
-                });
             });
+
+            const data = await response.json();
+            return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tidak ada respon.";
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            const chatbox = document.getElementById('chatbox');
+
+            // Pesan awal dari AI
+            const initialMessage = "Hai, saya Anselma! Ada yang bisa saya bantu hari ini?";
+            chatbox.innerHTML += `<div class="message-wrapper bot-wrapper"><div class="bot-message">${initialMessage}</div></div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        });
+
+        document.getElementById('chatForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatbox = document.getElementById('chatbox');
+            chatbox.innerHTML += `<div class="message-wrapper user-wrapper"><div class="user-message">${message}</div></div>`;
+            input.value = "";
+
+            const reply = await getGeminiReply(message);
+            chatbox.innerHTML += `<div class="message-wrapper bot-wrapper"><div class="bot-message">${reply}</div></div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
         });
     </script>
 </body>

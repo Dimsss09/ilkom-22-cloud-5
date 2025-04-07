@@ -199,6 +199,9 @@ while ($row = mysqli_fetch_assoc($instansiChartResult)) {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="pdfModalLabel">Panduan PDF</h5>
+                        <a href="gemini-chat.php" class="btn btn-success ms-3">
+                            <i class="bi bi-robot"></i> Tanya AI
+                        </a>
                         <a href="panduan.php?download=1" class="btn btn-primary ms-3">
                             <i class="bi bi-cloud-download" style="font-size: 1.5rem;"></i> Unduh
                         </a>
