@@ -1,24 +1,13 @@
 <?php
-require 'function.php';
+require __DIR__ . '/vendor/autoload.php';
+use App\BookSearch;
 
-// Using general Google Books API without API key
-$api_key = "";
+// Initialize search
+$apiKey = ''; // Your API key here if you have one
+$search = new BookSearch($apiKey);
 
-// Function to search books using Google Books API
-function searchBooks($query, $startIndex = 0, $maxResults = 10) {
-    global $api_key;
-    
-    $url = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($query) . 
-           "&startIndex=" . $startIndex . 
-           "&maxResults=" . $maxResults . 
-           "&key=" . $api_key;
-    
-    $response = file_get_contents($url);
-    return json_decode($response, true);
-}
-
-// Get search parameters from form
-$search_query = isset($_GET['search']) ? $_GET['search'] : '';
+// Get search parameters
+$search_query = $_GET['search'] ?? '';
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $max_results = 10;
 $start_index = ($page - 1) * $max_results;
@@ -27,15 +16,14 @@ $start_index = ($page - 1) * $max_results;
 $books = [];
 $total_items = 0;
 if (!empty($search_query)) {
-    $result = searchBooks($search_query, $start_index, $max_results);
-    $books = isset($result['items']) ? $result['items'] : [];
-    $total_items = isset($result['totalItems']) ? $result['totalItems'] : 0;
+    $result = $search->search($search_query, $start_index, $max_results);
+    $books = $result['items'] ?? [];
+    $total_items = $result['totalItems'] ?? 0;
 }
 
 // Calculate pagination
 $total_pages = ceil($total_items / $max_results);
-// Batasi maksimal halaman menjadi 10
-$total_pages = min($total_pages, 10);
+$total_pages = min($total_pages, 10); // Limit to 10 pages
 ?>
 
 <!DOCTYPE html>
