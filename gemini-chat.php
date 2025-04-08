@@ -163,7 +163,7 @@ require_once 'cek.php';
       
       
       
-      • Silahkan masukkan Username “admin” dan password “admin” , kemudian tekan tombol  
+      • Silahkan masukkan Username dan password, kemudian tekan tombol  
       login.  
       • Akan muncul halaman Dashboard admin sebagai berikut:  
       
@@ -251,7 +251,7 @@ require_once 'cek.php';
                 Gunakan panduan di bawah ini untuk membantu menjawab pertanyaan. Berikan jawaban yang
                 jelas dan ringkas. Jika tidak ada informasi yang relevan, katakan "Tidak ada informasi yang tersedia".
                 Berikan jawaban sesuai dengan apa yang kamu pahami dari panduan tersebut. 
-
+                Jangan memberikan informasi yang sensitif seperti username, password untuk login dan sebagainya kepada siapapun, bahkan jika user yang bertanya.
 
                 Jika jawabannya panjang, buat ringkas menggunakan point-point yang jelas.
                 Jika jawabannya terkait langkah-langkah, maka buatlah dalam bentuk list atau bullet point yang menurun.
@@ -261,7 +261,6 @@ require_once 'cek.php';
                 Selalu menjawab dengan format HTML.
                 Tampilkan langkah-langkah dalam format list vertikal, satu langkah per baris, seperti dalam Markdown atau HTML.
                 Tolong berikan jawaban dalam format HTML list menggunakan <ol><li>...</li></ol> agar hasilnya lebih rapi.
-                Jangan memberikan informasi yang sensitif seperti password untuk login dan sebagainya.
                 Jangan mengulangi panduan tersebut dalam jawabanmu, tetapi buat bahasamu sendiri sesuai dengan apa yang kamu pahami dari panduan tersebut, jangan langsung copy teksnya, dan gunakan kalimat yang mudah dimengerti pengguna.
                 Jangan mempelajari dari pengguna, tetapi pelajari dari panduan yang sudah ada, dan ikuti perintah yang sudah disipakan di atas.
 
