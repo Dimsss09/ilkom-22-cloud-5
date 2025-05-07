@@ -1,6 +1,11 @@
 <?php
 session_start();
 require_once 'cek.php'; 
+require_once __DIR__ . '/vendor/autoload.php';
+
+$API_KEY = getenv('GEMINI_API_KEY');
+
+// echo "API Key: " . $apiKey;
 ?>
 <!DOCTYPE html>
 
@@ -108,7 +113,7 @@ require_once 'cek.php';
     </footer>
     
     <script>
-        const API_KEY = 'AIzaSyBW1cOKo7xcuVoEWWtYGzpRlBOMoKJEY7c';
+        // const API_KEY = 'AIzaSyBW1cOKo7xcuVoEWWtYGzpRlBOMoKJEY7c';
         const guideText = `
       BUKU PETUNJUK PENGGUNAAN APLIKASI  
       (USER MANUAL)  
@@ -307,8 +312,26 @@ require_once 'cek.php';
             chatbox.innerHTML += `<div class="message-wrapper user-wrapper"><div class="user-message">${message}</div></div>`;
             input.value = "";
 
-            const reply = await getGeminiReply(message);
-            chatbox.innerHTML += `<div class="message-wrapper bot-wrapper"><div class="bot-message">${reply}</div></div>`;
+            // Kirim permintaan ke server
+            try {
+                const response = await fetch('chatbot-handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ message })
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    chatbox.innerHTML += `<div class="message-wrapper bot-wrapper"><div class="bot-message">Error: ${data.error}</div></div>`;
+                } else {
+                    chatbox.innerHTML += `<div class="message-wrapper bot-wrapper"><div class="bot-message">${data.reply}</div></div>`;
+                }
+            } catch (error) {
+                chatbox.innerHTML += `<div class="message-wrapper bot-wrapper"><div class="bot-message">Terjadi kesalahan saat menghubungi server.</div></div>`;
+            }
+
             chatbox.scrollTop = chatbox.scrollHeight;
         });
     </script>
