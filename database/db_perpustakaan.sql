@@ -114,9 +114,9 @@ CREATE TABLE `login` (
 -- Dumping data for table `login`
 --
 
-INSERT INTO `login` (`id_login`, `username`, `password`) VALUES
-(1, 'admin', 'admin123'),
-(2, 'admin', 'admin');
+-- INSERT INTO `login` (`id_login`, `username`, `password`) VALUES
+-- (1, 'admin', 'admin123'),
+-- (2, 'admin', 'admin');
 
 -- --------------------------------------------------------
 --
