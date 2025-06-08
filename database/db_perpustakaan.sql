@@ -119,6 +119,14 @@ INSERT INTO `login` (`id_login`, `username`, `password`) VALUES
 (2, 'admin', 'admin');
 
 -- --------------------------------------------------------
+--
+-- Table structure for table `rak`
+--
+
+CREATE TABLE `rak` (
+  `id_rak` varchar(10) NOT NULL,
+  `keterangan` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Table structure for table `penelitian`
@@ -146,14 +154,6 @@ CREATE TABLE `penelitian` (
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `rak`
---
-
-CREATE TABLE `rak` (
-  `id_rak` varchar(10) NOT NULL,
-  `keterangan` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rak`
@@ -198,6 +198,14 @@ ALTER TABLE `kategori`
 ALTER TABLE `login`
   ADD PRIMARY KEY (`id_login`);
 
+
+--
+-- Indexes for table `rak`
+--
+
+ALTER TABLE `rak`
+  ADD PRIMARY KEY (`id_rak`);
+
 --
 -- Indexes for table `penelitian`
 --
@@ -210,13 +218,6 @@ ALTER TABLE `penelitian`
   ADD KEY `id_instansi` (`id_instansi`);
 ALTER TABLE `penelitian` ADD FULLTEXT KEY `judul` (`judul`,`nama_penulis`);
 ALTER TABLE `penelitian` ADD FULLTEXT KEY `judul_2` (`judul`,`nama_penulis`);
-
---
--- Indexes for table `rak`
---
-
-ALTER TABLE `rak`
-  ADD PRIMARY KEY (`id_rak`);
 
 --
 -- AUTO_INCREMENT for dumped tables
