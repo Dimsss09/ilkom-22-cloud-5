@@ -28,6 +28,23 @@ if(isset($_POST['addpenelitian'])) {
     $instansi = mysqli_real_escape_string($conn, $_POST['instansi']);
     $fakultas = mysqli_real_escape_string($conn, $_POST['fakultas']);
 
+    // ✅ Validasi: tahun harus 4 digit
+    if (!preg_match('/^\d{4}$/', $tahun)) {
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Input Tidak Valid',
+                    text: 'Tahun harus terdiri dari 4 digit angka!',
+                    timer: 2500,
+                    showConfirmButton: false
+                });
+            });
+        </script>";
+        exit;
+    }
+
     // Check if tgl_masuk is empty, if so, use CURRENT_TIMESTAMP
     if (empty($_POST['tgl_masuk'])) {
         $tgl_masuk = "CURRENT_TIMESTAMP";
@@ -54,7 +71,7 @@ if(isset($_POST['addpenelitian'])) {
                 });
             });
         </script>";
-    }else { 
+    } else { 
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
         echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
