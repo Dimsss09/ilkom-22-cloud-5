@@ -22,6 +22,9 @@ if (isset($_GET['download'])) {
     exit;
 }
 
+// ✅ Logging untuk preview file panduan
+file_put_contents("log_download.txt", date("Y-m-d H:i:s") . " - File panduan dibuka (preview)\n", FILE_APPEND);
+
 header("Content-Type: application/pdf");
 header("Content-Disposition: inline; filename=panduan.pdf");
 header("Content-Length: " . filesize($pdfFile));
