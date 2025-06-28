@@ -18,6 +18,10 @@ if(isset($_POST['addpenelitian'])) {
 
     // Concatenate all author names into a single string separated by commas 
     $nama_penulis = implode(", ", $_POST['nama_penulis']);
+if (strlen($nama_penulis) < 5) {
+    echo "Nama penulis minimal harus 5 karakter.";
+    exit;
+}
 
     // Escape all user inputs to prevent SQL injection and handle special characters
     $nama_penulis = mysqli_real_escape_string($conn, $nama_penulis);
