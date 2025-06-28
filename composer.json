@@ -1,6 +1,8 @@
 {
   "name": "perpustakaan/brida",
   "description": "E-Library BRIDA Chatbot Testing",
+  "license": "MIT",
+  "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
       "App\\": "src/"
