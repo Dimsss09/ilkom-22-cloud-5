@@ -10,6 +10,9 @@ if (!file_exists($pdfFile)) {
 }
 
 if (isset($_GET['download'])) {
+    // Logging aktivitas unduhan
+    file_put_contents("log_download.txt", date("Y-m-d H:i:s") . " - File panduan diunduh oleh user\n", FILE_APPEND);
+
     // Set header agar file dikirim sebagai unduhan
     header("Content-Type: application/pdf");
     header("Content-Disposition: attachment; filename=panduan.pdf");
