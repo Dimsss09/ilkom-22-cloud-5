@@ -49,6 +49,9 @@ try {
         throw new Exception($conn->error);
     }
 
+    // ✅ Tambahan log aktivitas
+    file_put_contents('log_update.txt', date('Y-m-d H:i:s') . " - Data penelitian ID $id diperbarui\n", FILE_APPEND);
+
     echo json_encode([
         'success' => true,
         'message' => 'Data penelitian berhasil diperbarui'
