@@ -1,6 +1,17 @@
 <?php
 require 'function.php';
 
+// Tambahan: pastikan koneksi database tersedia
+if (!$conn) {
+    file_put_contents('log_update.txt', date('Y-m-d H:i:s') . " - ERROR: Koneksi database gagal\n", FILE_APPEND);
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Koneksi database gagal'
+    ]);
+    exit;
+}
+
 // Prevent any output before JSON response
 ob_clean();
 header('Content-Type: application/json');
@@ -49,7 +60,7 @@ try {
         throw new Exception($conn->error);
     }
 
-    // ✅ Tambahan log aktivitas
+    // Log aktivitas
     file_put_contents('log_update.txt', date('Y-m-d H:i:s') . " - Data penelitian ID $id diperbarui\n", FILE_APPEND);
 
     echo json_encode([
