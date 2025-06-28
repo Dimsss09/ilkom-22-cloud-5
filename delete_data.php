@@ -17,6 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $result = mysqli_query($conn, $query);
 
+    // ✅ Logging aktivitas penghapusan
+    $log_status = $result ? "BERHASIL" : "GAGAL";
+    $log_msg = date("Y-m-d H:i:s") . " - [$log_status] Hapus $type dengan ID: $id\n";
+    file_put_contents("log_hapus.txt", $log_msg, FILE_APPEND);
+
     if ($result) {
         echo json_encode(['success' => true, 'message' => 'Data berhasil dihapus!']);
     } else {
