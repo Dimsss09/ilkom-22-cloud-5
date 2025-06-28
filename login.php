@@ -1,10 +1,16 @@
 <?php
+session_start(); // ⬅️ Tambahan: pastikan session aktif
 require 'function.php';
 
-//cek login
+// cek login
 if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = htmlspecialchars(trim($_POST['username']));
+    $password = htmlspecialchars(trim($_POST['password']));
+
+    // Logging attempt
+    $logFile = 'log_login.txt';
+    $logMessage = date('Y-m-d H:i:s') . " - Login attempt by user: $username\n";
+    file_put_contents($logFile, $logMessage, FILE_APPEND);
 
     // Prepare the SQL statement
     $stmt = $conn->prepare("SELECT * FROM login WHERE username = ? AND password = ?");
@@ -17,10 +23,17 @@ if (isset($_POST['login'])) {
     // Check if any rows were returned
     if ($result->num_rows > 0) {
         $_SESSION['login'] = true;
+
+        // Logging success
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " - SUCCESS: $username logged in\n", FILE_APPEND);
+
         header("location: dashboard.php");
         exit();
     } else {
         $error = "Invalid username or password!";
+
+        // Logging failure
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " - FAIL: $username login failed\n", FILE_APPEND);
     }
 
     // Close the statement
@@ -46,8 +59,7 @@ if (isset($_SESSION['login'])) {
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-        <link rel="Icon" type="png"
-        href="assets/img/instansi-logo.png">
+        <link rel="Icon" type="png" href="assets/img/instansi-logo.png">
         <style>
             body {
                 background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.7)), url('assets/img/9.jpg');
@@ -56,37 +68,31 @@ if (isset($_SESSION['login'])) {
                 background-repeat: no-repeat;
                 background-attachment: fixed;
             }
-            
             .card {
                 background-color: rgba(255, 255, 255, 0.95);
                 backdrop-filter: blur(10px);
             }
-            
             .btn-custom-primary {
                 background-color: #FFC107;
                 border-color: #FFC107;
                 color: #000;
                 transition: all 0.3s ease;
             }
-            
             .btn-custom-primary:hover {
                 background-color: #FFB300;
                 border-color: #FFB300;
                 transform: translateY(-2px);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
-            
             .card-header {
                 background-color: transparent;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 position: relative;
             }
-            
             .card-footer {
                 background-color: transparent;
                 border-top: 1px solid rgba(0, 0, 0, 0.1);
             }
-
             .home-icon {
                 color: #FFC107;
                 position: absolute;
@@ -124,9 +130,6 @@ if (isset($_SESSION['login'])) {
                                             <div class="d-flex align-items-center justify-content-center text-center mt-4 mb-3">   
                                                 <button class="btn btn-custom-primary px-4" name="login">Login</button>
                                             </div>
-                                            <!-- <div class="d-flex align-items-center justify-content-center text-center">
-                                                <a class="btn btn-custom-primary px-4" href="home.php">Back to Home</a>
-                                            </div> -->
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3"></div>
