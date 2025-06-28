@@ -11,9 +11,7 @@ require_once 'function.php';
 // Pastikan tidak ada output lain sebelum ini
 header('Content-Type: application/json');
 
-
-//  Ambil dan Filter Data dari $_POST
-
+// Ambil dan Filter Data dari $_POST
 $search = isset($_POST['search']) ? $conn->real_escape_string($_POST['search']) : '';
 $year = isset($_POST['year']) ? $conn->real_escape_string($_POST['year']) : '';
 $category = isset($_POST['category']) ? $conn->real_escape_string($_POST['category']) : '';
@@ -63,7 +61,6 @@ if ($location != '') {
 $sql .= " ORDER BY p.tgl_masuk DESC, p.id_penelitian DESC"; 
 $sql .= " LIMIT $limit OFFSET $offset";
 
-
 $result = $conn->query($sql);
 
 $data = '';
@@ -92,7 +89,7 @@ $count_sql = "SELECT COUNT(*) AS total FROM penelitian p
               JOIN instansi i ON p.id_instansi = i.id_instansi
               JOIN kategori k ON p.id_kategori = k.id_kategori
               JOIN fakultas f ON p.id_fakultas = f.id_fakultas";
-              
+
 $count_sql .= " WHERE 1=1";
 if ($search != '') {
     $count_sql .= " AND (p.judul LIKE '%$search%' OR p.nama_penulis LIKE '%$search%')";
@@ -162,6 +159,9 @@ $response = [
     'info' => "Showing page $page of $total_pages",
     'total_records' =>  "Showing $result->num_rows records out of $total_records"
 ];
+
+// ✅ Tambahan log aktivitas pencarian
+file_put_contents("log_search.txt", date("Y-m-d H:i:s") . " - Search query: '$search', page: $page\n", FILE_APPEND);
 
 // Bersihkan output buffer dan kirim respons JSON
 ob_end_clean();
