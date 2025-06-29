@@ -48,5 +48,30 @@ function validasiEmail($email) {
     }
     return true;
 }
+function validasiHanyaHuruf($input, $nama_field) {
+    if (!preg_match("/^[a-zA-Z\s]+$/", $input)) {
+        return "$nama_field hanya boleh berisi huruf dan spasi.";
+    }
+    return true;
+}
+function validasiPanjangMaksimal($input, $maks, $nama_field) {
+    if (strlen(trim($input)) > $maks) {
+        return "$nama_field maksimal $maks karakter.";
+    }
+    return true;
+}
+function validasiNomorInduk($nomor, $panjang, $nama_field) {
+    if (!preg_match("/^\d{{$panjang}}$/", $nomor)) {
+        return "$nama_field harus berupa $panjang digit angka.";
+    }
+    return true;
+}
+function validasiAlamat($input, $nama_field) {
+    if (!preg_match("/^[a-zA-Z0-9\s,.-]+$/", $input)) {
+        return "$nama_field mengandung karakter tidak valid.";
+    }
+    return true;
+}
+
 ?>
 
