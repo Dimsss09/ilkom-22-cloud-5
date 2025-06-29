@@ -23,6 +23,12 @@ $locations_query = "SELECT DISTINCT id_rak FROM rak ORDER BY id_rak ASC";
 $locations_result = $conn->query($locations_query);
 ?>
 
+// Placeholder untuk validasi input tahun dari user
+// Akan digunakan jika ada input POST['tahun']
+// if (!preg_match('/^\d{4}$/', $_POST['tahun'])) {
+//     echo "Tahun harus 4 digit angka";
+//     exit;
+// }
 
 <!DOCTYPE html>
 <html lang="en">
@@ -905,5 +911,6 @@ $(document).ready(function() {
       </div>
     </div>
 </body>
-</html>/ /   k o m e n t a r   t a m b a h a n   p e r t a m a  
+</html>/ /   k o m e n t a r   t a m b a h a n   p e r t a m a 
+ 
  
