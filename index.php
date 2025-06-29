@@ -29,6 +29,11 @@ $locations_result = $conn->query($locations_query);
 //     echo "Tahun harus 4 digit angka";
 //     exit;
 // }
+// Placeholder: Validasi judul tidak boleh kosong
+// if (empty(trim($_POST['judul']))) {
+//     echo "Judul tidak boleh kosong";
+//     exit;
+// }
 
 <!DOCTYPE html>
 <html lang="en">
