@@ -39,6 +39,11 @@ $locations_result = $conn->query($locations_query);
 //     echo "Format tanggal masuk tidak valid. Gunakan format YYYY-MM-DD";
 //     exit;
 // }
+// Placeholder: Validasi instansi tidak boleh kosong
+// if (empty(trim($_POST['instansi']))) {
+//     echo "Instansi tidak boleh kosong";
+//     exit;
+// }
 
 <!DOCTYPE html>
 <html lang="en">
