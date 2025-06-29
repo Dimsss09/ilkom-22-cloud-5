@@ -34,6 +34,9 @@ $locations_result = $conn->query($locations_query);
 //     echo "Judul tidak boleh kosong";
 //     exit;
 // }
+require_once 'helper-format.php';
+$_POST['judul'] = formatTitleCase($_POST['judul']);
+
 // Placeholder: Validasi format tanggal masuk harus YYYY-MM-DD
 // if (!DateTime::createFromFormat('Y-m-d', $_POST['tgl_masuk'])) {
 //     echo "Format tanggal masuk tidak valid. Gunakan format YYYY-MM-DD";
