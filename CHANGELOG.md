@@ -36,4 +36,9 @@
 - Membuat file `profile.php` yang menampilkan info login pengguna
 - Menggunakan Bootstrap 5 untuk tampilan rapi dan modern
 
+## ✅ Commit: Halaman 404 & Perlindungan Routing
+- Menambahkan halaman `404.php` untuk akses yang tidak valid
+- Redirect otomatis ke 404 jika file tidak ditemukan
+- Meningkatkan UX saat pengguna salah membuka URL
+
 ---
