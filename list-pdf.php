@@ -66,7 +66,35 @@ $result = mysqli_query($conn, $query); // Eksekusi query
         </tbody>
     </table>
 
+    <!-- Modal -->
+    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Preview PDF</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <iframe id="pdfFrame" src="" width="100%" height="600px" style="border:none;"></iframe>
+        </div>
+        </div>
+    </div>
+    </div>
+
     <!-- Tombol untuk menuju halaman upload -->
     <a href="upload.php" class="btn btn-success">Upload File Baru</a>
+    <a href="#" class="btn btn-secondary btn-sm" onclick="previewPDF('uploads/<?= $row['nama_file'] ?>')">Preview</a>
+    <a href="download-zip.php" class="btn btn-warning mb-3">Download Semua PDF (.zip)</a>
+
+    <script>
+    function previewPDF(url) {
+        document.getElementById('pdfFrame').src = url;
+        var myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+        myModal.show();
+    }
+    </script>
+
+    <!-- Script bootstrap JS (wajib agar modal jalan) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
