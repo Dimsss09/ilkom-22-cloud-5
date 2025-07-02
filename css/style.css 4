@@ -1,0 +1,4 @@
+.table-hover-dark tr:hover {
+  background-color: #333;
+  color: #fff;
+}
