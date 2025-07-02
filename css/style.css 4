@@ -1,4 +1,7 @@
-.table-hover-dark tr:hover {
-  background-color: #333;
-  color: #fff;
-}
+<body>
+<optional detailed explanation of what and why>
+</body>
+
+<footer>
+<optional footer: issue references, breaking changes, etc>
+</footer>"
