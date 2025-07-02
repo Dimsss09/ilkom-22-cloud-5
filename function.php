@@ -1,15 +1,18 @@
 <?php
+// Memulai sesi jika belum dimulai
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// membuat koneksi ke database 
+
+// Membuat koneksi ke database MySQL
 $conn = mysqli_connect("localhost", "root", "", "db_perpustakaan");
 if (!$conn) { 
     echo "Koneksi database gagal!"; 
 }
 
-// tambah penelitian 
+// Menangani proses penambahan data penelitian
 if(isset($_POST['addpenelitian'])) { 
+    // Mengambil data dari form
     $tgl_masuk = $_POST['tgl_masuk']; 
     $instansi = $_POST['instansi']; 
     $fakultas = $_POST['fakultas']; 
@@ -18,14 +21,16 @@ if(isset($_POST['addpenelitian'])) {
     $tahun = $_POST['tahun']; 
     $rak = $_POST['rak'];
 
-    // Concatenate all author names into a single string separated by commas 
+    // Menggabungkan nama penulis (jika lebih dari satu) menjadi satu string dipisah koma
     $nama_penulis = implode(", ", $_POST['nama_penulis']);
-if (strlen($nama_penulis) < 5) {
-    echo "Nama penulis minimal harus 5 karakter.";
-    exit;
-}
 
-    // Escape all user inputs to prevent SQL injection and handle special characters
+    // Validasi panjang minimal nama penulis
+    if (strlen($nama_penulis) < 5) {
+        echo "Nama penulis minimal harus 5 karakter.";
+        exit;
+    }
+
+    // Melindungi input dari SQL Injection dengan escapement
     $nama_penulis = mysqli_real_escape_string($conn, $nama_penulis);
     $kategori = mysqli_real_escape_string($conn, $_POST['kategori']);
     $judul = mysqli_real_escape_string($conn, $_POST['judul']);
@@ -34,8 +39,9 @@ if (strlen($nama_penulis) < 5) {
     $instansi = mysqli_real_escape_string($conn, $_POST['instansi']);
     $fakultas = mysqli_real_escape_string($conn, $_POST['fakultas']);
 
-    // ✅ Validasi: tahun harus 4 digit
+    // ✅ Validasi bahwa tahun harus berupa 4 digit angka
     if (!preg_match('/^\d{4}$/', $tahun)) {
+        // Menampilkan peringatan menggunakan SweetAlert jika tahun tidak valid
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
         echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -51,17 +57,19 @@ if (strlen($nama_penulis) < 5) {
         exit;
     }
 
-    // Check if tgl_masuk is empty, if so, use CURRENT_TIMESTAMP
+    // Jika tanggal masuk kosong, gunakan CURRENT_TIMESTAMP dari MySQL
     if (empty($_POST['tgl_masuk'])) {
         $tgl_masuk = "CURRENT_TIMESTAMP";
     } else {
+        // Jika tidak kosong, gunakan tanggal yang diinputkan dengan escape
         $tgl_masuk = "'" . mysqli_real_escape_string($conn, $_POST['tgl_masuk']) . "'";
     }
 
-    // Insert data into the database
+    // Menyimpan data penelitian ke dalam database
     $addtotable = mysqli_query($conn, "INSERT INTO penelitian (tgl_masuk, nama_penulis, id_kategori, judul, tahun, id_rak, id_instansi, id_fakultas) 
         VALUES ($tgl_masuk, '$nama_penulis', '$kategori', '$judul', '$tahun', '$rak', '$instansi', '$fakultas')");
 
+    // Jika berhasil menyimpan, tampilkan notifikasi sukses dan redirect
     if ($addtotable) { 
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
         echo "<script>
@@ -78,6 +86,7 @@ if (strlen($nama_penulis) < 5) {
             });
         </script>";
     } else { 
+        // Jika gagal menyimpan, tampilkan notifikasi error dengan pesan dari database
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
         echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
