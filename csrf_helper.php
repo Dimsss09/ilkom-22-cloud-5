@@ -1,38 +1,53 @@
 <?php
 // csrf_helper.php
-// Fungsi bantu untuk melindungi form dari serangan CSRF
+// Fungsi bantu untuk melindungi form dari serangan CSRF (Cross Site Request Forgery)
 
 /**
  * Membuat token CSRF dan menyimpannya di session
+ *
+ * Token ini digunakan untuk melindungi form dari submit palsu dari luar situs
+ *
+ * @return string Token yang dibuat
  */
 function generateCSRFToken() {
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
 
-    if (empty($_SESSION['_csrf_token'])) {
-        $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
-    }
+    // Buat token acak dan simpan di session
+    $token = bin2hex(random_bytes(32));
+    $_SESSION['csrf_token'] = $token;
 
-    return $_SESSION['_csrf_token'];
-}
-
-function getCSRFTokenInput() {
-    $token = generateCSRFToken();
-    return "<input type='hidden' name='csrf_token' value='$token'>";
+    return $token;
 }
 
 /**
- * Verifikasi token CSRF dari request
+ * Mengecek apakah token yang dikirim dari form sesuai dengan token di session
+ *
+ * @param string $token Token dari form
+ * @return bool Apakah token valid
  */
-function verifyCSRFToken($submittedToken) {
+function validateCSRFToken($token) {
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
 
-    if (!isset($_SESSION['_csrf_token']) || $submittedToken !== $_SESSION['_csrf_token']) {
-        return false;
-    }
+    return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+}
 
-    return true;
+/**
+ * Menampilkan input hidden yang berisi token CSRF
+ * Digunakan di dalam tag <form>
+ *
+ * Contoh pemakaian:
+ * <form method="post">
+ *     <?= csrfInput(); ?>
+ *     ...
+ * </form>
+ *
+ * @return string
+ */
+function csrfInput() {
+    $token = generateCSRFToken();
+    return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars($token) . '">';
 }
