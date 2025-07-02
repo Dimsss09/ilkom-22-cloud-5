@@ -11,3 +11,13 @@ if (!isset($_SESSION['username'])) {
 }
 
 $username = $_SESSION['username'];
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selamat Datang</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
