@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/*!
+* Form Elements Reset Template
+* Based on Normalize.css and Bootstrap Reset
+* Author: Your Name or Team (Optional)
+* License: MIT
+*/
+
+/* Reset for radio and checkbox */
+input[type=radio],
+input[type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* Textarea behavior */
+textarea {
+  overflow: auto;
+  resize: vertical;
+}
+
+/* Fieldset normalization */
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
