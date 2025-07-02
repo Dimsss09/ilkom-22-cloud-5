@@ -23,3 +23,10 @@ if (!$result) {
     ]);
     exit;
 }
+
+echo json_encode([
+    'status' => 'ok',
+    'message' => 'Sistem berjalan normal',
+    'tables_found' => mysqli_num_rows($result)
+]);
+?>
