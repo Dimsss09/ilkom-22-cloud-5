@@ -34,8 +34,21 @@ $locations_result = $conn->query($locations_query);
 //     echo "Judul tidak boleh kosong";
 //     exit;
 // }
-require_once 'helper-format.php';
-$_POST['judul'] = formatTitleCase($_POST['judul']);
+require_once 'helper-validasi.php'; 
+
+$instansi = $_POST['instansi']; 
+
+$cekPanjang = validasiPanjangMaksimal($instansi, 50, 'Instansi');
+if ($cekPanjang !== true) {
+    echo $cekPanjang;
+    exit;
+}
+
+$cekHuruf = validasiHanyaHuruf($instansi, 'Instansi');
+if ($cekHuruf !== true) {
+    echo $cekHuruf;
+    exit;
+}
 
 // Placeholder: Validasi format tanggal masuk harus YYYY-MM-DD
 // if (!DateTime::createFromFormat('Y-m-d', $_POST['tgl_masuk'])) {
