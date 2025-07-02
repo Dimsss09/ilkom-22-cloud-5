@@ -1,42 +1,67 @@
 <?php
-require 'function.php'; // Memanggil file function.php untuk koneksi database
-$result = mysqli_query($conn, "SELECT * FROM file_penelitian ORDER BY id DESC"); // Mengambil semua data file dari tabel file_penelitian, urutkan dari yang terbaru
+require 'function.php'; // koneksi database
+
+// Proses pencarian
+$keyword = isset($_GET['search']) ? trim($_GET['search']) : '';
+$query = "SELECT * FROM file_penelitian";
+
+// Jika keyword tidak kosong, tambahkan filter ke query
+if (!empty($keyword)) {
+    $safeKeyword = mysqli_real_escape_string($conn, $keyword);
+    $query .= " WHERE judul LIKE '%$safeKeyword%' OR tahun LIKE '%$safeKeyword%'";
+}
+
+$query .= " ORDER BY id DESC";
+$result = mysqli_query($conn, $query); // Eksekusi query
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Daftar File PDF</title>
-    <!-- Menyertakan Bootstrap untuk styling -->
+    <!-- Bootstrap untuk styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body class="container mt-5">
     <h2>Daftar File Penelitian (PDF)</h2>
-    <!-- Tabel untuk menampilkan daftar file -->
+
+    <!-- Form Pencarian -->
+    <form method="GET" class="form-inline mb-3">
+        <input type="text" name="search" class="form-control mr-2" placeholder="Cari judul atau tahun" value="<?= htmlspecialchars($keyword) ?>">
+        <button type="submit" class="btn btn-primary">Cari</button>
+        <a href="list-pdf.php" class="btn btn-secondary ml-2">Reset</a>
+    </form>
+
+    <!-- Tabel daftar file -->
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>No</th> <!-- Kolom Nomor Urut -->
-                <th>Judul</th> <!-- Kolom Judul Penelitian -->
-                <th>Tahun</th> <!-- Kolom Tahun -->
-                <th>File</th> <!-- Kolom Aksi untuk melihat file PDF -->
+                <th>No</th>
+                <th>Judul</th>
+                <th>Tahun</th>
+                <th>File</th>
             </tr>
         </thead>
         <tbody>
-            <?php $no = 1; while ($row = mysqli_fetch_assoc($result)): ?>
+            <?php if (mysqli_num_rows($result) > 0): ?>
+                <?php $no = 1; while ($row = mysqli_fetch_assoc($result)): ?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= htmlspecialchars($row['judul']) ?></td>
+                        <td><?= htmlspecialchars($row['tahun']) ?></td>
+                        <td>
+                            <a href="uploads/<?= $row['nama_file'] ?>" target="_blank" class="btn btn-info btn-sm">Lihat PDF</a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
                 <tr>
-                    <td><?= $no++ ?></td> <!-- Menampilkan nomor urut -->
-                    <td><?= htmlspecialchars($row['judul']) ?></td> <!-- Menampilkan judul penelitian dengan perlindungan terhadap XSS -->
-                    <td><?= htmlspecialchars($row['tahun']) ?></td> <!-- Menampilkan tahun penelitian -->
-                    <td>
-                        <!-- Tombol untuk melihat file PDF dalam tab baru -->
-                        <a href="uploads/<?= $row['nama_file'] ?>" target="_blank" class="btn btn-info btn-sm">Lihat PDF</a>
-                    </td>
+                    <td colspan="4" class="text-center">Tidak ada data ditemukan.</td>
                 </tr>
-            <?php endwhile; ?>
+            <?php endif; ?>
         </tbody>
     </table>
-    <!-- Tombol untuk kembali ke halaman upload file -->
-    <a href="upload.php" class="btn btn-primary">Upload File Baru</a>
+
+    <a href="upload.php" class="btn btn-success">Upload File Baru</a>
 </body>
 </html>
