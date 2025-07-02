@@ -41,4 +41,9 @@
 - Redirect otomatis ke 404 jika file tidak ditemukan
 - Meningkatkan UX saat pengguna salah membuka URL
 
+## ✅ Commit: Pembersihan & Struktur Direktori
+- Menambahkan folder `panduan/` untuk menyimpan file PDF
+- Menata file konfigurasi `.env` agar tidak terbuka publik
+- Memisahkan `function.php` dan `cek.php` dari direktori utama
+
 ---
