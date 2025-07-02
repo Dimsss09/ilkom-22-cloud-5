@@ -1,23 +1,37 @@
 <?php
-require 'function.php'; // Mengimpor file function.php untuk koneksi ke database
+require 'function.php'; // Menghubungkan ke database
 
-// Mengatur header agar browser mengenali konten sebagai file Excel
+// Atur agar hasil diekspor sebagai file Excel
 header("Content-type: application/vnd-ms-excel");
+header("Content-Disposition: attachment; filename=data_penelitian_filtered.xls");
 
-// Mengatur nama file yang akan diunduh pengguna
-header("Content-Disposition: attachment; filename=data_penelitian.xls");
+// Ambil filter dari URL jika ada
+$tahun = isset($_GET['tahun']) ? $_GET['tahun'] : '';
+$kategori = isset($_GET['kategori']) ? $_GET['kategori'] : '';
+$instansi = isset($_GET['instansi']) ? $_GET['instansi'] : '';
 
-// Memulai tabel HTML sebagai isi file Excel
+// Buat query dasar
+$query = "SELECT * FROM penelitian WHERE 1=1";
+
+// Tambahkan filter jika tersedia
+if (!empty($tahun)) {
+    $query .= " AND tahun = '" . mysqli_real_escape_string($conn, $tahun) . "'";
+}
+if (!empty($kategori)) {
+    $query .= " AND id_kategori = '" . mysqli_real_escape_string($conn, $kategori) . "'";
+}
+if (!empty($instansi)) {
+    $query .= " AND id_instansi = '" . mysqli_real_escape_string($conn, $instansi) . "'";
+}
+
+// Jalankan query
+$result = mysqli_query($conn, $query);
+
+// Tampilkan hasil dalam tabel
 echo "<table border='1'>";
 echo "<tr><th>No</th><th>Judul</th><th>Penulis</th><th>Tahun</th></tr>";
 
-// Menjalankan query untuk mengambil semua data dari tabel 'penelitian'
-$result = mysqli_query($conn, "SELECT * FROM penelitian");
-
-// Inisialisasi nomor urut
 $no = 1;
-
-// Menampilkan setiap baris data dalam format tabel
 while ($row = mysqli_fetch_assoc($result)) {
     echo "<tr>
             <td>$no</td>
@@ -25,9 +39,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             <td>{$row['nama_penulis']}</td>
             <td>{$row['tahun']}</td>
           </tr>";
-    $no++; // Menambahkan nomor urut
+    $no++;
 }
 
-// Menutup tag tabel
 echo "</table>";
 ?>
