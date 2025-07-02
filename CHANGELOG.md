@@ -46,4 +46,12 @@
 - Menata file konfigurasi `.env` agar tidak terbuka publik
 - Memisahkan `function.php` dan `cek.php` dari direktori utama
 
+## ✅ Commit: Logout Feedback
+- Menambahkan redirect dan feedback visual saat logout
+- Pengguna langsung diarahkan ke login dengan session dibersihkan
+
+## ✅ Commit: Dokumentasi Changelog
+- Menambahkan file `CHANGELOG.md` sebagai dokumentasi perubahan
+- Berisi ringkasan semua fitur, perbaikan, dan log commit utama
+
 ---
