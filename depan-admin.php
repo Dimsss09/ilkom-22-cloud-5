@@ -1,14 +1,21 @@
 <?php
+// Mengimpor file function.php yang berisi fungsi-fungsi pendukung
 require 'function.php';
+// Mengecek apakah user sudah login atau memiliki akses
 require 'cek.php';
 
 // Fetch data from each table
+// Mengambil data dari tabel instansi dan mengurutkannya berdasarkan nama
 $instansi_result = mysqli_query($conn, "SELECT * FROM instansi ORDER BY nama_instansi asc");
+// Mengambil data dari tabel fakultas dan mengurutkannya berdasarkan nama
 $fakultas_result = mysqli_query($conn, "SELECT * FROM fakultas ORDER BY nama_fakultas asc");
+// Mengambil data dari tabel kategori dan mengurutkannya berdasarkan nama
 $kategori_result = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori asc");
+// Mengambil data dari tabel rak dan mengurutkannya berdasarkan ID rak
 $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
 ?>
 
+// Mulai bagian HTML tampilan
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +27,12 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
     <title>e-Library BRIDA - Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
+// Inisialisasi plugin Select2 untuk dropdown
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+// Inisialisasi plugin Select2 untuk dropdown
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -106,6 +115,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
         }
 
         /* Samakan tinggi elemen input dan dropdown */
+// Inisialisasi plugin Select2 untuk dropdown
         .form-control, .select2-container .select2-selection--single {
             height: calc(2.25rem + 2px); /* Sesuaikan dengan tinggi elemen input */
         }
@@ -125,6 +135,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
     </style>
 </head>
 <body>
+// Navbar atas (navigasi utama)
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="dashboard.php">E-BRAY</a>
@@ -149,6 +160,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
         </li>
     </ul>
 </nav>
+// Container utama halaman tambah entitas
 <div class="container-fluid px-4">
     <div class="d-flex justify-content-between align-items-center mt-4">
         <h1>Tambah Data Entitas</h1>
@@ -161,6 +173,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
         <li class="breadcrumb-item active">Admin</li>
     </ol>
     <div class="row">
+// Kolom tampilan kartu entitas
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -180,7 +193,9 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
                                 <tr>
                                     <td><?php echo $row['nama_instansi']; ?></td>
                                     <td>
+// Tangani tombol edit, menampilkan modal edit
                                         <button class="btn btn-warning btn-sm btn-edit" id="edit-instansi-<?php echo $row['id_instansi']; ?>" data-id="<?php echo $row['id_instansi']; ?>" data-nama="<?php echo $row['nama_instansi']; ?>">Edit</button>
+// Tangani tombol hapus data dengan konfirmasi
                                         <button class="btn btn-danger btn-sm btn-delete" id="delete-instansi-<?php echo $row['id_instansi']; ?>" data-id="<?php echo $row['id_instansi']; ?>">Hapus</button>
                                     </td>
                                 </tr>
@@ -190,6 +205,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
                 </div>
             </div>
         </div>
+// Kolom tampilan kartu entitas
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -209,7 +225,9 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
                                 <tr>
                                     <td><?php echo $row['nama_fakultas']; ?></td>
                                     <td>
+// Tangani tombol edit, menampilkan modal edit
                                         <button class="btn btn-warning btn-sm btn-edit" id="edit-fakultas-<?php echo $row['id_fakultas']; ?>" data-id="<?php echo $row['id_fakultas']; ?>" data-nama="<?php echo $row['nama_fakultas']; ?>">Edit</button>
+// Tangani tombol hapus data dengan konfirmasi
                                         <button class="btn btn-danger btn-sm btn-delete" id="delete-fakultas-<?php echo $row['id_fakultas']; ?>" data-id="<?php echo $row['id_fakultas']; ?>">Hapus</button>
                                     </td>
                                 </tr>
@@ -219,6 +237,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
                 </div>
             </div>
         </div>
+// Kolom tampilan kartu entitas
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -238,7 +257,9 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
                                 <tr>
                                     <td><?php echo $row['nama_kategori']; ?></td>
                                     <td>
+// Tangani tombol edit, menampilkan modal edit
                                         <button class="btn btn-warning btn-sm btn-edit" id="edit-kategori-<?php echo $row['id_kategori']; ?>" data-id="<?php echo $row['id_kategori']; ?>" data-nama="<?php echo $row['nama_kategori']; ?>">Edit</button>
+// Tangani tombol hapus data dengan konfirmasi
                                         <button class="btn btn-danger btn-sm btn-delete" id="delete-kategori-<?php echo $row['id_kategori']; ?>" data-id="<?php echo $row['id_kategori']; ?>">Hapus</button>
                                     </td>
                                 </tr>
@@ -248,6 +269,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
                 </div>
             </div>
         </div>
+// Kolom tampilan kartu entitas
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -267,7 +289,9 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
                                 <tr>
                                     <td><?php echo $row['id_rak']; ?></td>
                                     <td>
+// Tangani tombol edit, menampilkan modal edit
                                         <button class="btn btn-warning btn-sm btn-edit" id="edit-rak-<?php echo $row['id_rak']; ?>" data-id="<?php echo $row['id_rak']; ?>" data-nama="<?php echo $row['id_rak']; ?>">Edit</button>
+// Tangani tombol hapus data dengan konfirmasi
                                         <button class="btn btn-danger btn-sm btn-delete" id="delete-rak-<?php echo $row['id_rak']; ?>" data-id="<?php echo $row['id_rak']; ?>">Hapus</button>
                                     </td>
                                 </tr>
@@ -281,6 +305,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
 </div>
 
 <!-- Modal Tambah Instansi -->
+// Modal tambah data Instansi
 <div class="modal fade" id="addInstansiModal" tabindex="-1" aria-labelledby="addInstansiModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -305,6 +330,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
 </div>
 
 <!-- Modal Tambah Fakultas -->
+// Modal tambah data Fakultas
 <div class="modal fade" id="addFakultasModal" tabindex="-1" aria-labelledby="addFakultasModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -329,6 +355,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
 </div>
 
 <!-- Modal Tambah Kategori -->
+// Modal tambah data Kategori
 <div class="modal fade" id="addKategoriModal" tabindex="-1" aria-labelledby="addKategoriModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -353,6 +380,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
 </div>
 
 <!-- Modal Tambah Rak -->
+// Modal tambah data Rak
 <div class="modal fade" id="addRakModal" tabindex="-1" aria-labelledby="addRakModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -377,6 +405,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
 </div>
 
 <!-- Modal Edit Data -->
+// Modal untuk mengedit data (bisa untuk semua entitas)
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -402,7 +431,9 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
     </div>
 </div>
 
+// Footer aplikasi
 <footer class="py-4 bg-light mt-auto">
+// Container utama halaman tambah entitas
     <div class="container-fluid px-4">
         <div class="d-flex align-items-center justify-content-between small">
             <div class="text-muted"> &copy; KKP Ilmu Komputer UHO 2025</div>
@@ -412,13 +443,16 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>
 <script>
+// Script jQuery: Mengatur semua aksi tombol, form, dan SweetAlert
     $(document).ready(function() {
         // Inisialisasi Select2 pada elemen dropdown
+// Inisialisasi plugin Select2 untuk dropdown
         $('#editInstansi, #editFakultas, #editKategori, #editRak').select2({
             width: 'resolve' // Pastikan lebar sesuai kontainer
         });
 
         // Handle form submission for adding data
+// Tangani submit form tambah data
         $('form').on('submit', function(e) {
             if ($(this).attr('id') === 'editForm') {
                 return;
@@ -467,6 +501,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
         });
 
         // Handle edit button click
+// Tangani tombol edit, menampilkan modal edit
         $(document).on('click', '.btn-edit', function(e) {
             e.preventDefault();
 
@@ -493,6 +528,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
         });
         
         // Handle form submission for editing data
+// Tangani submit form edit data
         $('#editForm').on('submit', function(e) {
             e.preventDefault();
         
@@ -563,6 +599,7 @@ $rak_result = mysqli_query($conn, "SELECT * FROM rak ORDER BY id_rak asc");
         });
 
         // Handle delete button click
+// Tangani tombol hapus data dengan konfirmasi
         $(document).on('click', '.btn-delete', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
