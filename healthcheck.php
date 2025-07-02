@@ -13,3 +13,13 @@ if (!$conn) {
     ]);
     exit;
 }
+
+// Tes query sederhana
+$result = mysqli_query($conn, "SHOW TABLES");
+if (!$result) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Query database gagal dijalankan'
+    ]);
+    exit;
+}
