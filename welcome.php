@@ -21,3 +21,6 @@ $username = $_SESSION['username'];
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Selamat Datang, <?php echo htmlspecialchars($username); ?>!</h1>
+        <p>Ini adalah halaman sambutan setelah Anda berhasil login.</p>
