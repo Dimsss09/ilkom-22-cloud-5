@@ -46,3 +46,21 @@ function mostFrequentValue(array $arr) {
     arsort($counts);
     return array_key_first($counts);
 }
+/**
+ * Mengubah array multidimensi menjadi array 1 dimensi
+ *
+ * Contoh:
+ * flattenArray([1, [2, 3], [4, [5, 6]]]) → [1, 2, 3, 4, 5, 6]
+ *
+ * @param array $array
+ * @return array
+ */
+function flattenArray(array $array): array {
+    $result = [];
+
+    array_walk_recursive($array, function($item) use (&$result) {
+        $result[] = $item;
+    });
+
+    return $result;
+}
