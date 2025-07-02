@@ -12,14 +12,17 @@ $totalRak = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FRO
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata dan link CSS Bootstrap -->
     <meta charset="UTF-8">
     <title>Dashboard Ringkasan</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
+    <!-- Judul halaman -->
     <h2 class="text-center mb-4">📊 Ringkasan Data E-Library</h2>
     <div class="row">
+        <!-- Kartu ringkasan total Penelitian -->
         <div class="col-md-4">
             <div class="card text-white bg-primary mb-3">
                 <div class="card-header">Total Penelitian</div>
@@ -28,6 +31,7 @@ $totalRak = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FRO
                 </div>
             </div>
         </div>
+        <!-- Kartu ringkasan total Instansi -->
         <div class="col-md-4">
             <div class="card text-white bg-success mb-3">
                 <div class="card-header">Total Instansi</div>
@@ -36,6 +40,7 @@ $totalRak = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FRO
                 </div>
             </div>
         </div>
+        <!-- Kartu ringkasan total Fakultas -->
         <div class="col-md-4">
             <div class="card text-white bg-info mb-3">
                 <div class="card-header">Total Fakultas</div>
@@ -44,6 +49,7 @@ $totalRak = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FRO
                 </div>
             </div>
         </div>
+        <!-- Kartu ringkasan total Kategori -->
         <div class="col-md-4">
             <div class="card text-white bg-warning mb-3">
                 <div class="card-header">Total Kategori</div>
@@ -52,6 +58,7 @@ $totalRak = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FRO
                 </div>
             </div>
         </div>
+        <!-- Kartu ringkasan total Rak -->
         <div class="col-md-4">
             <div class="card text-white bg-danger mb-3">
                 <div class="card-header">Total Rak</div>
@@ -61,6 +68,7 @@ $totalRak = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FRO
             </div>
         </div>
     </div>
+    <!-- Tombol kembali ke dashboard utama -->
     <a href="index.php" class="btn btn-secondary mt-3">⬅ Kembali ke Dashboard</a>
 </div>
 </body>
